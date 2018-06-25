@@ -24,5 +24,7 @@ public interface MyService {
 	
 	public Ad getAdById(long id);
 	
+	public void updateAd(Ad ad);
+	
 
 }

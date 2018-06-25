@@ -16,5 +16,7 @@ public interface AdDao {
 	
 	public Ad getAdById(long id);
 	
+	public void updateAd(Ad ad);
+	
 
 }

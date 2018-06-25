@@ -142,4 +142,24 @@ public class AdDaoImpl implements AdDao {
 		}
 		return thisAd;
 	}
+
+	@Override
+	public void updateAd(Ad ad) {
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			session.saveOrUpdate(ad);
+			tx.commit();
+		} catch (Exception e) {
+			try {
+				tx.rollback();
+			} catch (HibernateException he) {
+				logger.error("Could not rollback transaction!");
+			}
+		} finally {
+			session.close();
+		}
+	}
 }

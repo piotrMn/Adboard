@@ -16,7 +16,7 @@ public class MyServiceImpl implements MyService {
 
 	@Autowired
 	UserDao userDao;
-	
+
 	@Autowired
 	AdDao adDao;
 
@@ -53,12 +53,18 @@ public class MyServiceImpl implements MyService {
 	@Override
 	public void deleteAdById(long id) {
 		adDao.deleteAdById(id);
-		
+
 	}
 
 	@Override
 	public Ad getAdById(long id) {
 		return adDao.getAdById(id);
+	}
+
+	@Override
+	public void updateAd(Ad ad) {
+		adDao.updateAd(ad);
+
 	}
 
 }
