@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+#container {
+	padding: 0.5em;
+	margin: 0.5em;
+}
+
+.error{
+	color: red;
+}
+
+.ad-item{
+	padding: 0.5em;
+	margin: 0.5em;
+	border: 1px dotted blue;
+	border-radius: 0.5em;
+}
+
+#ad-box{
+	padding: 0.5em;
+	height: 200px;
+}
+
+#navbar{
+	padding: 1em;
+}
+
+.floating-btn{
+	display: block;
+	float: right;
+}
