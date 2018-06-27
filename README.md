@@ -10,6 +10,7 @@ Podstawowe funkcjonalności:
 - zarządzanie kategoriami przez administratora
 - publikowanie komentarzy  
 Tworzenie kont i przydział ról (zwykły użytkownik, administrator) w oparciu o Spring Security.  
+Generyczne DAO dla zapisywania, usuwania, pobierania encji wg Id i listy wszystkich encji.  
 Komentowanie ogłoszeń z wykorzystaniem jQuery i Ajax.  
 Przykładowy użytkownik standardowy: jnowak (hasło: test123)  
 Przykładowy użytkownik admninistrator: admin (hasło: admin)  
