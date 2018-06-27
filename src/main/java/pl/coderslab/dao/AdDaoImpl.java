@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pl.coderslab.entity.Ad;
-import pl.coderslab.entity.User;
 
 @Repository
 public class AdDaoImpl implements AdDao {
@@ -25,25 +24,6 @@ public class AdDaoImpl implements AdDao {
 	@Autowired
 	SessionFactory sessionFactory;
 
-	@Override
-	public void saveAd(Ad ad) {
-		Session session = null;
-		Transaction tx = null;
-		try {
-			session = sessionFactory.openSession();
-			tx = session.beginTransaction();
-			session.save(ad);
-			tx.commit();
-		} catch (Exception e) {
-			try {
-				tx.rollback();
-			} catch (HibernateException he) {
-				logger.error("Could not rollback transaction!");
-			}
-		} finally {
-			session.close();
-		}
-	}
 
 	@Override
 	public List<Ad> getAllCurrentAds() {
@@ -93,72 +73,5 @@ public class AdDaoImpl implements AdDao {
 			session.close();
 		}
 		return allAds;
-	}
-
-	@Override
-	public void deleteAdById(long id) {
-		Session session = null;
-		Transaction tx = null;
-		Ad thisAd = null;
-		User thisUser = null;
-		try {
-			session = sessionFactory.openSession();
-			tx = session.beginTransaction();
-			thisAd = session.get(Ad.class, id);
-			thisUser = session.get(User.class, thisAd.getUser().getId());
-			thisUser.getAds().remove(thisAd);
-			session.delete(thisAd);
-			tx.commit();
-		} catch (Exception e) {
-			try {
-				tx.rollback();
-			} catch (HibernateException he) {
-				logger.error("Could not rollback transaction!");
-			}
-		} finally {
-			session.close();
-		}
-	}
-
-	@Override
-	public Ad getAdById(long id) {
-		Session session = null;
-		Transaction tx = null;
-		Ad thisAd = null;
-		try {
-			session = sessionFactory.openSession();
-			tx = session.beginTransaction();
-			thisAd = session.get(Ad.class, id);
-			tx.commit();
-		} catch (Exception e) {
-			try {
-				tx.rollback();
-			} catch (HibernateException he) {
-				logger.error("Could not rollback transaction!");
-			}
-		} finally {
-			session.close();
-		}
-		return thisAd;
-	}
-
-	@Override
-	public void updateAd(Ad ad) {
-		Session session = null;
-		Transaction tx = null;
-		try {
-			session = sessionFactory.openSession();
-			tx = session.beginTransaction();
-			session.saveOrUpdate(ad);
-			tx.commit();
-		} catch (Exception e) {
-			try {
-				tx.rollback();
-			} catch (HibernateException he) {
-				logger.error("Could not rollback transaction!");
-			}
-		} finally {
-			session.close();
-		}
 	}
 }

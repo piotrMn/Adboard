@@ -1,6 +1,8 @@
 package pl.coderslab.entity;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,10 +11,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import pl.coderslab.entity.Category;
 
 @Entity
 @Table(name = "ads")
@@ -36,6 +42,14 @@ public class Ad {
 	
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch=FetchType.EAGER)
 	private User user;
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(
+			name = "ad_category",
+			joinColumns = @JoinColumn(name = "ad_id"),
+			inverseJoinColumns = @JoinColumn(name = "category_id")
+			)
+	private List<Category> categories = new ArrayList<>();
 
 	//constructor
 	public Ad() {

@@ -18,13 +18,10 @@
 		<hr>
 		<a href="${pageContext.request.contextPath}/user" role="button" class="btn btn-secondary" aria-pressed="true">Zaloguj się</a>
 		<hr>
-		<c:if test="${principal.username != null }">
-			Witaj <sec:authentication property="principal.username"/>
-		</c:if>
 		<div id="ad-box">
 			<%int i = 1; %>
 			<c:forEach items="${ads}" var="ad">
-				<div class="ad-item" data-row="<%=i %>">
+				<div class="list-item" data-row="<%=i %>">
 					<b style="line-height: 0.75em;"><c:out value="${ad.getTitle() }"/></b>
 					<hr>
 					opublikował: <c:out value="${ad.getUser().getFullname() }"/><br>

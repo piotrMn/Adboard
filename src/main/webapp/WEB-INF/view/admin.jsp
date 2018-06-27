@@ -16,8 +16,23 @@
 	<div id="container">
 		<h2>Administracja</h2>
 		<hr>
-		
-		
+		<div id="navbar">
+			<a href="${pageContext.request.contextPath}/category/new" role="button" class="btn btn-secondary" aria-pressed="true">Dodaj kategorię</a>
+		</div>
+		<c:if test="${not empty categories }">
+		<b>Kategorie:</b>
+			<div id="category-box">
+				<c:forEach items="${categories }" var="category">
+					<div class="list-item">
+						<b><c:out value="${category.getName() }"></c:out></b><br>
+						<a href="${pageContext.request.contextPath}/category/delete/${category.getId()}" class="action-links" onclick="return confirm('Na pewno usunąć?')">Usuń</a>
+						<a href="${pageContext.request.contextPath}/category/edit/${category.getId()}" class="action-links">Edytuj</a>
+						${category.getDescription() }
+					</div>
+				</c:forEach>
+			</div>		
+		</c:if>
+
 	</div>
 </body>
 </html>

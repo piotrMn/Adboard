@@ -8,18 +8,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.coderslab.entity.Ad;
-import pl.coderslab.service.MyService;
+import pl.coderslab.service.SpecificService;
 
 @Controller
 @RequestMapping("")
 public class HomeController {
 	
 	@Autowired
-	MyService myService;
+	SpecificService specificService;
 	
 	@RequestMapping("")
 	public String showHome(Model model) {
-		List<Ad> currentAds = myService.getAllCurrentAds();
+		List<Ad> currentAds = specificService.getAllCurrentAds();
 		model.addAttribute("ads", currentAds);
 		return "home";
 	}

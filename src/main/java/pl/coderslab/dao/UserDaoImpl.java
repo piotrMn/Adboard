@@ -44,28 +44,6 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getUserById(long id) {
-		Session session = null;
-		Transaction tx = null;
-		User thisUser = null;
-		try {
-			session = sessionFactory.openSession();
-			tx = session.beginTransaction();
-			thisUser = session.get(User.class, id);
-			tx.commit();
-		} catch (Exception e) {
-			try {
-				tx.rollback();
-			} catch (HibernateException he) {
-				logger.error("Could not rollback transaction!");
-			}
-		} finally {
-			session.close();
-		}
-		return thisUser;
-	}
-
-	@Override
 	public User getUserByUsername(String username) {
 		Session session = null;
 		Transaction tx = null;

@@ -15,30 +15,24 @@
 </head>
 <body>
 	<div id="container">
-		<h4>Edycja ogłoszenia</h4>
+		<h4>Nowa kategoria</h4>
 		<hr>
-		<form:form modelAttribute="ad" method="POST" action="${pageContext.request.contextPath }/ad/edit }"  acceptCharset="UTF-8">
-			<form:hidden path="id" value="${ad.getId() }" />
-			<form:hidden path="creationTimestamp" value="${ad.getCreationTimestamp() }"/>
-			<form:hidden path="expiryTimestamp" value="${ad.getExpiryTimestamp() }"/>
-			<form:hidden path="user.id" value="${ad.getUser().getId()}"/>
+		<form:form modelAttribute="category" method="POST" action="${pageContext.request.contextPath }/category/new"  acceptCharset="UTF-8">
 			<table>
 				<tr>
-					<td>Tytuł</td>
-					<td><form:input path="title" value="${ad.getTitle() }" size="60"/></td>
+					<td>Nazwa</td>
+					<td><form:input path="name" size="60"/></td>
 				</tr>
 				<tr>
 					<td>Opis</td>
-					<td><form:textarea path="description" value="${ad.getDescription() }" rows="7" cols="60" /></td>
+					<td><form:textarea path="description" rows="7" cols="60" /></td>
 				</tr>
-				<tr>
-					<td>Miejsce</td>
-					<td><form:input path="location" value="${ad.getLocation() }" /></td>
-				</tr>
+				<tr><td colspan="2" style="height: 20px;"></td></tr>
 				<tr>
 					<td><input type="submit" value="Zatwierdź" role="button" class="btn btn-secondary" aria-pressed="true"></td>
-					<td style="text-align: center;"><a href="${pageContext.request.contextPath}/user" role="button" class="btn btn-secondary" aria-pressed="true">Anuluj</a><td>
+					<td style="text-align: center"><a href="${pageContext.request.contextPath}/admin" role="button" class="btn btn-secondary" aria-pressed="true" >Anuluj</a><td>
 				</tr>
+				
 			</table>
 		</form:form>
 	</div>

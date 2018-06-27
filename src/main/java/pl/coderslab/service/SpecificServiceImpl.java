@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import pl.coderslab.dao.AdDao;
 import pl.coderslab.dao.Role;
@@ -13,7 +12,7 @@ import pl.coderslab.entity.Ad;
 import pl.coderslab.entity.User;
 
 @Service
-public class MyServiceImpl implements MyService {
+public class SpecificServiceImpl implements SpecificService {
 
 	@Autowired
 	UserDao userDao;
@@ -24,16 +23,6 @@ public class MyServiceImpl implements MyService {
 	@Override
 	public void saveUserWithRole(User user, Role role) {
 		userDao.saveUserWithRole(user, role);
-	}
-
-	@Override
-	public User getUserById(long id) {
-		return userDao.getUserById(id);
-	}
-
-	@Override
-	public void saveAd(Ad ad) {
-		adDao.saveAd(ad);
 	}
 
 	@Override
@@ -51,22 +40,5 @@ public class MyServiceImpl implements MyService {
 		return adDao.getAllAdsByUserId(id);
 	}
 
-	@Override
-	public void deleteAdById(long id) {
-		adDao.deleteAdById(id);
-
-	}
-
-	@Override
-	public Ad getAdById(long id) {
-		return adDao.getAdById(id);
-	}
-
-	@Override
-	@Transactional
-	public void updateAd(Ad ad) {
-		adDao.updateAd(ad);
-
-	}
 
 }
