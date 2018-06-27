@@ -24,9 +24,19 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
+	private String fullname;
 
 	private String username;
 	
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
 	@Column(columnDefinition="VARCHAR(68)")
 	private String password;
 	

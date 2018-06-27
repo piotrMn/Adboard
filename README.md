@@ -1,3 +1,4 @@
+
 # Adboard
 
 Aplikacja do publikowania ogłoszeń.  
@@ -10,6 +11,9 @@ Podstawowe funkcjonalności:
 - publikowanie komentarzy  
 Tworzenie kont i przydział ról (zwykły użytkownik, administrator) w oparciu o Spring Security.  
 Komentowanie ogłoszeń z wykorzystaniem jQuery i Ajax.  
+Przykładowy użytkownik standardowy: jnowak (hasło: test123)  
+Przykładowy użytkownik admninistrator: admin (hasło: admin)  
+URL strony administratora: http://localhost:8080/Adboard/admin (wpisane z klawiatury)
 
 
 

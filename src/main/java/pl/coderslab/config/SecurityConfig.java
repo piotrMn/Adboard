@@ -18,16 +18,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
 		auth.jdbcAuthentication().dataSource(restDataSource);
-		
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests()
-				.antMatchers("/user/**").hasAnyRole("EMPLOYEE", "ADMIN")
+				.antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/admin/**").hasRole("ADMIN")
 			.and()
 			.formLogin()

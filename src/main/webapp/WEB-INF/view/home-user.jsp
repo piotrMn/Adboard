@@ -20,11 +20,18 @@
 		Witaj <sec:authentication property="principal.username"/><br>
 		<hr>
 		<div id="navbar">
-			<form:form action="${pageContext.request.contextPath}/logout" method="POST">
-				<input type="submit" value="Wyloguj się">
-			</form:form>		
+			<div class="row">
+				<div class="col-2">
+					<form:form action="${pageContext.request.contextPath}/logout" method="POST">
+						<input type="submit" value="Wyloguj się" role="button" class="btn btn-secondary" aria-pressed="true">
+					</form:form>
+				</div>
+				<div class="col-2">
+					<a href="${pageContext.request.contextPath}/ad/new" role="button" class="btn btn-secondary" aria-pressed="true">Nowe ogłoszenie</a>
+				</div>
+				<div class="col-8"></div>
+			</div>
 		</div>
-
 		<c:if test="${not empty ads }">
 			<div id="ad-box">
 				<b>Twoje ogłoszenia</b>

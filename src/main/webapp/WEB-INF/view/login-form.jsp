@@ -28,10 +28,11 @@
 					<td>Hasło:</td>
 					<td><input type="password" name="password"></td>
 				</tr>
+				<tr><td colspan="2" height="20px;"></td></tr>
 				<tr>
-					<td><input type="submit" value="Zaloguj"></td>
+					<td><input type="submit" value="Zaloguj" role="button" class="btn btn-secondary" aria-pressed="true"></td>
 					<td>
-						<a href="${pageContext.request.contextPath}/" class="btn btn-default">Strona główna</a>
+						<a href="${pageContext.request.contextPath}/" role="button" class="btn btn-secondary" aria-pressed="true">Strona główna</a>
 					</td>
 				</tr>			
 			</table>

@@ -17,6 +17,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -56,7 +57,11 @@ public class AppConfig implements WebMvcConfigurer {
 		Properties props = new Properties();
 		props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 		props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+		props.setProperty("hibernate.packagesToScan", env.getProperty("hibernate.packagesToScan"));
 		props.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+		props.setProperty("hibernate.connection.useUnicode", env.getProperty("hibernate.connection.useUnicode"));
+		props.setProperty("hibernate.connection.characterEncoding", env.getProperty("hibernate.connection.characterEncoding"));
+		props.setProperty("hibernate.connection.CharSet", env.getProperty("hibernate.connection.CharSet"));
 		return props;
 	}
 
@@ -83,9 +88,13 @@ public class AppConfig implements WebMvcConfigurer {
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
+	
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}
 
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 
 	}

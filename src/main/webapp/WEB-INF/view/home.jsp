@@ -16,17 +16,18 @@
 	<div id="container">
 		<h2>Witaj w Tablicy Ogłoszeń!</h2>
 		<hr>
-		<a href="${pageContext.request.contextPath}/user">Zaloguj się</a>
+		<a href="${pageContext.request.contextPath}/user" role="button" class="btn btn-secondary" aria-pressed="true">Zaloguj się</a>
 		<hr>
 		<c:if test="${principal.username != null }">
 			Witaj <sec:authentication property="principal.username"/>
 		</c:if>
 		<div id="ad-box">
+			<%int i = 1; %>
 			<c:forEach items="${ads}" var="ad">
-				<div class="ad-item">
+				<div class="ad-item" data-row="<%=i %>">
 					<b style="line-height: 0.75em;"><c:out value="${ad.getTitle() }"/></b>
 					<hr>
-					opublikował: <c:out value="${ad.getUser().getUsername() }"/><br>
+					opublikował: <c:out value="${ad.getUser().getFullname() }"/><br>
 					telefon: <c:out value="${ad.getUser().getPhone() }"/><br>
 					miejsce: <c:out value="${ad.getLocation() }"/><br>
 					<c:set value="${ad.getExpiryTimestamp() }" var="expiry"/>
@@ -34,6 +35,7 @@
 					<hr>
 					<c:out value="${ad.getDescription() }"/>
 				</div>
+				<%i++; %>
 			</c:forEach>
 		</div>
 	</div>

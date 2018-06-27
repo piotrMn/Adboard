@@ -94,15 +94,18 @@ public class Ad {
 		return expiryTimestamp;
 	}
 
-	@Override
-	public String toString() {
-		return "Ad [id=" + id + ", title=" + title + ", description=" + description + ", location=" + location
-				+ ", user=" + user + "]";
-	}
-
 	public void setExpiryTimestamp(Timestamp expiryTimestamp) {
 		this.expiryTimestamp = expiryTimestamp;
 	}
+
+	@Override
+	public String toString() {
+		return "Ad [id=" + id + ", title=" + title + ", description=" + description + ", location=" + location
+				+ ", creationTimestamp=" + creationTimestamp + ", expiryTimestamp=" + expiryTimestamp + ", user=" + user
+				+ "]";
+	}
+	
+	
 
 
 }

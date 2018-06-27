@@ -129,7 +129,6 @@ public class AdDaoImpl implements AdDao {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			thisAd = session.get(Ad.class, id);
-			session.delete(thisAd);
 			tx.commit();
 		} catch (Exception e) {
 			try {
