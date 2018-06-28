@@ -18,6 +18,7 @@
 		<hr>
 		<div id="navbar">
 			<a href="${pageContext.request.contextPath}/category/new" role="button" class="btn btn-secondary" aria-pressed="true">Dodaj kategorię</a>
+			<a href="${pageContext.request.contextPath}/admin/manage" role="button" class="btn btn-secondary" aria-pressed="true">Edycja ogłoszeń</a>
 		</div>
 		<c:if test="${not empty categories }">
 		<b>Kategorie:</b>

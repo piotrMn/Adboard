@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.coderslab.entity.Category;
+import pl.coderslab.service.CatServiceImpl;
 import pl.coderslab.service.GeneralService;
 
 @Controller
@@ -17,7 +18,7 @@ import pl.coderslab.service.GeneralService;
 public class CategoryController {
 
 	@Autowired
-	GeneralService<Category> generalService;
+	CatServiceImpl catService;
 
 	@GetMapping("/new")
 	public String addCategory(Model model) {
@@ -27,26 +28,26 @@ public class CategoryController {
 
 	@PostMapping("/new")
 	public String addCategoryPost(@ModelAttribute("category") Category category) {
-		generalService.saveEntity(category);
+		catService.saveEntity(category);
 		return "redirect:/admin";
 	}
 
 	@GetMapping("/delete/{id}")
 	public String deleteCategory(@PathVariable("id") long id) {
-		generalService.deleteEntityById(Category.class, id);
+		catService.deleteEntityById(Category.class, id);
 		return "redirect:/admin";
 	}
 	
 	@GetMapping("/edit/{id}")
 	public String editCategory(@PathVariable("id") long id, Model model) {
-		Category thisCategory = generalService.getEntityById(Category.class, id);
+		Category thisCategory = catService.getEntityById(Category.class, id);
 		model.addAttribute("category", thisCategory);
-		return "edit-category-form";
+		return "category-edit-form";
 	}
 	
 	@PostMapping("/edit/{id}")
 	public String editCategoryPost(@ModelAttribute("category") Category category) {
-		generalService.updateEntity(category);
+		catService.updateEntity(category);
 		return "redirect:/admin";
 	}
 	

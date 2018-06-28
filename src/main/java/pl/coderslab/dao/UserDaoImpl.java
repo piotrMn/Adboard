@@ -1,11 +1,9 @@
 package pl.coderslab.dao;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +12,6 @@ import pl.coderslab.entity.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-
-	private final Logger logger = Logger.getLogger(getClass().getName());
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -33,11 +29,7 @@ public class UserDaoImpl implements UserDao {
 			session.save(auth);
 			tx.commit();
 		} catch (Exception e) {
-			try {
-				tx.rollback();
-			} catch (HibernateException he) {
-				logger.error("Could not rollback transaction!");
-			}
+			tx.rollback();
 		} finally {
 			session.close();
 		}
@@ -56,11 +48,7 @@ public class UserDaoImpl implements UserDao {
 			thisUser = query.getSingleResult();
 			tx.commit();
 		} catch (Exception e) {
-			try {
-				tx.rollback();
-			} catch (HibernateException he) {
-				logger.error("Could not rollback transaction!");
-			}
+			tx.rollback();
 		} finally {
 			session.close();
 		}

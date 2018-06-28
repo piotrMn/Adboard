@@ -19,11 +19,8 @@ import pl.coderslab.entity.Ad;
 @Repository
 public class AdDaoImpl implements AdDao {
 
-	private final Logger logger = Logger.getLogger(getClass().getName());
-
 	@Autowired
 	SessionFactory sessionFactory;
-
 
 	@Override
 	public List<Ad> getAllCurrentAds() {
@@ -39,11 +36,7 @@ public class AdDaoImpl implements AdDao {
 			currentAds = query.getResultList();
 			tx.commit();
 		} catch (Exception e) {
-			try {
-				tx.rollback();
-			} catch (HibernateException he) {
-				logger.error("Could not rollback transaction!");
-			}
+			tx.rollback();
 		} finally {
 			session.close();
 		}
@@ -64,11 +57,7 @@ public class AdDaoImpl implements AdDao {
 			allAds = query.getResultList();
 			tx.commit();
 		} catch (Exception e) {
-			try {
-				tx.rollback();
-			} catch (HibernateException he) {
-				logger.error("Could not rollback transaction!");
-			}
+			tx.rollback();
 		} finally {
 			session.close();
 		}

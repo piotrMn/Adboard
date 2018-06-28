@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.coderslab.entity.Ad;
@@ -18,10 +18,14 @@ public class HomeController {
 	SpecificService specificService;
 	
 	@RequestMapping("")
-	public String showHome(Model model) {
-		List<Ad> currentAds = specificService.getAllCurrentAds();
-		model.addAttribute("ads", currentAds);
+	public String showHome() {
 		return "home";
 	}
+	
+	@ModelAttribute("ads")
+	public List<Ad> getCurrentAds(){
+		return specificService.getAllCurrentAds();
+	}
+	
 
 }
