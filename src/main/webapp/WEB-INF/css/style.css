@@ -9,14 +9,26 @@
 	color: red;
 }
 
-.list-item {
+.ad-list-item {
 	padding: 0.5em;
 	margin: 0.5em;
-	border: 1px dotted blue;
+	border: 1px dotted darkgray;
 	border-radius: 0.5em;
 }
 
-#ad-box{
+.category-list-item-big{
+	padding: 0.5em;
+	margin: 0.5em;
+	border: 1px dotted darkgray;
+	border-radius: 0.5em;
+}
+
+.category-list-item:hover{
+	cursor: pointer;
+	background-color: lightgray;
+}
+
+.item-box{
 	padding: 0.5em;
 	height: 200px;
 }

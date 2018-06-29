@@ -13,9 +13,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import pl.coderslab.validator.Password;
+import pl.coderslab.validator.Phone;
 
 @Entity
 @Table(name = "users")
@@ -25,26 +31,26 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@NotBlank(message = "Pole nie może byc puste.")
+	@Size(min = 8, max = 30, message = "Co najmniej 8 znaków")
 	private String fullname;
 
+	@NotBlank(message = "Pole nie może byc puste.")
+	@Size(min = 6, max = 30, message = "Co najmniej 6 znaków")
 	private String username;
-	
-	public String getFullname() {
-		return fullname;
-	}
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
-	}
 
 	@Column(columnDefinition="VARCHAR(68)")
+//	@Password(message = "8-30 znaków. Wielka litera, mała i cyfra")
 	private String password;
 	
 	@Column(columnDefinition="TINYINT(1)")
 	private int enabled;
 
+	@Email(message = "Niepoprawny format adresu.")
+	@NotBlank(message = "Pole nie może byc puste.")
 	private String email;
 	
+	@Phone(message = "Tylko cyfry")
 	private String phone;
 
 	@CreationTimestamp
@@ -64,6 +70,14 @@ public class User {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 
 	public String getUsername() {
@@ -95,8 +109,7 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		String passwordEncrypted = BCrypt.hashpw(password, BCrypt.gensalt());
-		this.password = "{bcrypt}" + passwordEncrypted;
+		this.password = password;
 	}
 
 	public int getEnabled() {

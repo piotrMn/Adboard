@@ -17,7 +17,7 @@
 	<div id="container">
 		<h4>Edycja ogłoszenia</h4>
 		<hr>
-		<form:form modelAttribute="ad" method="POST" action="${pageContext.request.contextPath }/ad/edit }"  acceptCharset="UTF-8">
+		<form:form modelAttribute="ad" method="POST" action="${pageContext.request.contextPath }/user/edit-ad }"  acceptCharset="UTF-8">
 			<form:hidden path="id" value="${ad.getId() }" />
 			<form:hidden path="creationTimestamp" value="${ad.getCreationTimestamp() }"/>
 			<form:hidden path="expiryTimestamp" value="${ad.getExpiryTimestamp() }"/>

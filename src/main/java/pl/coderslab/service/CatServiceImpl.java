@@ -9,7 +9,7 @@ import pl.coderslab.dao.GenericDao;
 import pl.coderslab.entity.Category;
 
 @Service
-public class CatServiceImpl implements GeneralService<Category> {
+public class CatServiceImpl implements GenericService<Category> {
 	
 	@Autowired
 	GenericDao<Category> genDao;

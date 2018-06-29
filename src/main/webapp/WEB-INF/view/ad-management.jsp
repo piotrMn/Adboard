@@ -19,19 +19,20 @@
 		<div id="navbar">
 			<a href="${pageContext.request.contextPath}/admin" role="button" class="btn btn-secondary" aria-pressed="true">Powrót do Administracji</a>
 		</div>
-		<c:if test="${not empty ads }">
+		<c:if test="${not empty allAds }">
 			<div id="ad-box">
-				<c:forEach items="${ads}" var="ad">
-					<div class="list-item">
+				<c:forEach items="${allAds}" var="ad">
+					<div class="ad-list-item">
 						<div>
 							<b style="line-height: 0.75em;"><c:out value="${ad.getTitle() }"/></b>
-							<a href="${pageContext.request.contextPath }/ad/delete/${ad.getId()}" class="btn floating-btn" onclick="return confirm('Na pewno usunąć?')">Usuń</a>
-							<a href="${pageContext.request.contextPath }/admin/adedit/${ad.getId()}" class="btn floating-btn">Edytuj</a>
-							<a href="${pageContext.request.contextPath }/admin/addcat/${ad.getId()}" class="btn floating-btn">Dodaj kategorię</a>						
+							<a href="${pageContext.request.contextPath }/admin/delete-ad/${ad.getId()}" class="btn floating-btn" onclick="return confirm('Na pewno usunąć?')">Usuń</a>
+							<a href="${pageContext.request.contextPath }/admin/edit-ad/${ad.getId()}" class="btn floating-btn">Edytuj</a>
+							<a href="${pageContext.request.contextPath }/admin/asign-category/${ad.getId()}" class="btn floating-btn">Przypisz kategorie</a>						
 						</div>
 						<hr>
 						Opublikował: <c:out value="${ad.getUser().getFullname() }"/>   (<c:out value="${ad.getUser().getUsername() }"/>)<br>
-						Kategorie: <c:forEach items="${ad.getCategories() }" var="category"><c:out value="${category }"/>  </c:forEach><br>
+						<c:set value="${ad.getCategories() }" var="categories"></c:set>
+						Kategorie: <c:forEach items="${categories }" var="cat"><c:out value="${cat.getName() }"/>  </c:forEach><br>
 						<c:set value="${ad.getExpiryTimestamp() }" var="expiry"/>
 						ważne do: <fmt:formatDate value="${expiry }" type="date" pattern="dd-MM-yyyy"/><br>
 						<hr>

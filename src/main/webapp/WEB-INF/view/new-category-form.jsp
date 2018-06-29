@@ -17,7 +17,7 @@
 	<div id="container">
 		<h4>Nowa kategoria</h4>
 		<hr>
-		<form:form modelAttribute="category" method="POST" action="${pageContext.request.contextPath }/category/new"  acceptCharset="UTF-8">
+		<form:form modelAttribute="category" method="POST" action="${pageContext.request.contextPath }/admin/new-category"  acceptCharset="UTF-8">
 			<table>
 				<tr>
 					<td>Nazwa</td>
@@ -25,14 +25,13 @@
 				</tr>
 				<tr>
 					<td>Opis</td>
-					<td><form:textarea path="description" rows="7" cols="60" /></td>
+					<td><form:textarea path="description" rows="2" cols="60" /></td>
 				</tr>
 				<tr><td colspan="2" style="height: 20px;"></td></tr>
 				<tr>
 					<td><input type="submit" value="Zatwierdź" role="button" class="btn btn-secondary" aria-pressed="true"></td>
 					<td style="text-align: center"><a href="${pageContext.request.contextPath}/admin" role="button" class="btn btn-secondary" aria-pressed="true" >Anuluj</a><td>
 				</tr>
-				
 			</table>
 		</form:form>
 	</div>

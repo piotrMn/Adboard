@@ -2,7 +2,7 @@ package pl.coderslab.service;
 
 import java.util.List;
 
-public interface GeneralService<T> {
+public interface GenericService<T> {
 	
 	public void saveEntity(T entity);
 	

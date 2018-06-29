@@ -1,5 +1,6 @@
 package pl.coderslab.dao;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -23,7 +24,11 @@ public class UserDaoImpl implements UserDao {
 		auth.setUsername(user.getUsername());
 		auth.setAuthority(role.toString());
 		try {
+			session = sessionFactory.getCurrentSession();
+		} catch (HibernateException he) {
 			session = sessionFactory.openSession();
+		}
+		try {
 			tx = session.beginTransaction();
 			session.save(user);
 			session.save(auth);

@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pl.coderslab.entity.Ad;
 import pl.coderslab.entity.User;
-import pl.coderslab.service.AdServiceImpl;
-import pl.coderslab.service.GeneralService;
+import pl.coderslab.service.GenericService;
 import pl.coderslab.service.SpecificService;
-import pl.coderslab.service.UserServiceImpl;
 
 @Controller
 @RequestMapping("/user")
@@ -27,51 +26,56 @@ public class UserController {
 
 	@Autowired
 	SpecificService specificService;
-	
+
 	@Autowired
-	UserServiceImpl userService;
-	
+	GenericService<Ad> adService;
+
 	@Autowired
-	AdServiceImpl adService;
-	
+	GenericService<User> userService;
+
 	@RequestMapping("")
 	public String showHomePageUser(Model model) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		User thisUser = specificService.getUserByUsername(username);
-		List<Ad> theAds = specificService.getAllAdsByUserId(thisUser.getId());
-		model.addAttribute("ads", theAds);
+		if (username != null) {
+			User thisUser = specificService.getUserByUsername(username);
+			if (thisUser != null) {
+				List<Ad> theAds = specificService.getAllAdsByUserId(thisUser.getId());
+				model.addAttribute("ads", theAds);
+			}
+		}
 		return "home-user";
+
 	}
-	
-	@RequestMapping("/addel/{id}")
+
+	@RequestMapping("/delete-ad/{id}")
 	public String deleteAd(@PathVariable("id") long id) {
 		adService.deleteEntityById(Ad.class, id);
 		return "redirect:/user";
 	}
 
-	@GetMapping("/adedit/{id}")
+	@GetMapping("/edit-ad/{id}")
 	public String editAd(@PathVariable("id") long id, Model model) {
 		Ad thisAd = adService.getEntityById(Ad.class, id);
 		model.addAttribute("ad", thisAd);
 		return "ad-edit-form";
 	}
-	
-	@PostMapping("/adedit")
+
+	@PostMapping("/edit-ad")
 	public String editAdPost(@ModelAttribute("ad") Ad ad) {
 		adService.updateEntity(ad);
 		return "redirect:/user";
 	}
-	
-	@GetMapping("/adcreate")
+
+	@GetMapping("/new-ad")
 	public String newAd(Model model) {
 		Ad ad = new Ad();
 		model.addAttribute("ad", ad);
-		return "new-add-form";
+		return "new-ad-form";
 	}
-	
-	@PostMapping("/adcreate")
+
+	@PostMapping("/new-ad")
 	public String newAdPost(@ModelAttribute("ad") Ad newAd) {
-		String username =  SecurityContextHolder.getContext().getAuthentication().getName();
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User thisUser = specificService.getUserByUsername(username);
 		thisUser.getAds().add(newAd);
 		newAd.setUser(thisUser);
@@ -79,8 +83,16 @@ public class UserController {
 		adService.saveEntity(newAd);
 		return "redirect:/user";
 	}
-	
-	
-	
+
+	@GetMapping("/delete-user")
+	public String deleteUser() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User thisUser = specificService.getUserByUsername(username);
+		if(thisUser != null) {
+			SecurityContextHolder.clearContext();
+			userService.deleteEntityById(User.class, thisUser.getId());
+		}
+		return "redirect:/";
+	}
 
 }

@@ -27,20 +27,24 @@
 					</form:form>
 				</div>
 				<div class="col-2">
-					<a href="${pageContext.request.contextPath}/user/adcreate" role="button" class="btn btn-secondary" aria-pressed="true">Nowe ogłoszenie</a>
+					<a href="${pageContext.request.contextPath}/user/new-ad" role="button" class="btn btn-secondary" aria-pressed="true">Nowe ogłoszenie</a>
 				</div>
-				<div class="col-8"></div>
+				<div class="col-2">
+					<a href="${pageConext.request.contextPath}/Adboard/user/delete-user" role="button" class="btn btn-secondary" aria-pressed="true" 
+					onclick="return confirm('Na pewno usunąć konto?')">Usuń konto</a>
+				</div>
+				<div class="col-6"></div>
 			</div>
 		</div>
 		<c:if test="${not empty ads }">
 			<div id="ad-box">
 				<b>Twoje ogłoszenia</b>
 				<c:forEach items="${ads}" var="ad">
-					<div class="ad-item">
+					<div class="ad-list-item">
 						<div>
 							<b style="line-height: 0.75em;"><c:out value="${ad.getTitle() }"/></b>
-							<a href="${pageContext.request.contextPath }/user/adedit/${ad.getId()}" class="btn floating-btn">Edytuj</a>
-							<a href="${pageContext.request.contextPath }/user/addel/${ad.getId()}" class="btn floating-btn" onclick="return confirm('Na pewno usunąć?')">Usuń</a>						
+							<a href="${pageContext.request.contextPath }/user/edit-ad/${ad.getId()}" class="btn floating-btn">Edytuj</a>
+							<a href="${pageContext.request.contextPath }/user/delete-ad/${ad.getId()}" class="btn floating-btn" onclick="return confirm('Na pewno usunąć?')">Usuń</a>						
 						</div>
 						<hr>
 						<c:set value="${ad.getExpiryTimestamp() }" var="expiry"/>

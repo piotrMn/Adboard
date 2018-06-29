@@ -9,7 +9,7 @@ import pl.coderslab.dao.GenericDao;
 import pl.coderslab.entity.Ad;
 
 @Service
-public class AdServiceImpl implements GeneralService<Ad> {
+public class AdServiceImpl implements GenericService<Ad> {
 	
 	@Autowired
 	GenericDao<Ad> genDao;

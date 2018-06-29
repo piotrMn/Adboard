@@ -17,6 +17,7 @@
 		<br>
 		
 		<a href="${path}" role="button" class="btn btn-secondary" aria-pressed="true">Powrót</a>	
+		<a href="${pageContext.request.contextPath}/showLoginPage" role="button" class="btn btn-secondary" aria-pressed="true">Zaloguj się</a>
 	</div>
 </body>
 </html>

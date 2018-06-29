@@ -17,7 +17,7 @@
 	<div id="container">
 		<h4>Nowe ogłoszenie</h4>
 		<hr>
-		<form:form modelAttribute="ad" method="POST" action="${pageContext.request.contextPath }/ad/new"  acceptCharset="UTF-8">
+		<form:form modelAttribute="ad" method="POST" action="${pageContext.request.contextPath }/user/new-ad"  acceptCharset="UTF-8">
 			<table>
 				<tr>
 					<td>Tytuł</td>

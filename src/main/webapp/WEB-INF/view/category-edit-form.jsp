@@ -17,7 +17,7 @@
 	<div id="container">
 		<h4>Edycja kategorii</h4>
 		<hr>
-		<form:form modelAttribute="category" method="POST" action="${pageContext.request.contextPath }/category/edit/${category.getId() }"  acceptCharset="UTF-8">
+		<form:form modelAttribute="category" method="POST" action="${pageContext.request.contextPath }/admin/edit-category/${category.getId() }"  acceptCharset="UTF-8">
 			<table>
 				<tr>
 					<td>Tytuł</td>

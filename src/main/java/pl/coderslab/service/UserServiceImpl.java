@@ -9,11 +9,10 @@ import pl.coderslab.dao.GenericDao;
 import pl.coderslab.entity.User;
 
 @Service
-public class UserServiceImpl implements GeneralService<User> {
+public class UserServiceImpl implements GenericService<User> {
 	
 	@Autowired
 	GenericDao<User> userDao;
-	
 
 	@Override
 	public void saveEntity(User entity) {
