@@ -12,7 +12,6 @@ Podstawowe funkcjonalności:
 Tworzenie kont i przydział ról (zwykły użytkownik, administrator) w oparciu o Spring Security.  
 Generyczne DAO dla zapisywania, usuwania, pobierania encji wg Id i listy wszystkich encji.  
 Komentowanie ogłoszeń z wykorzystaniem jQuery i Ajax.  
-Przykładowy użytkownik standardowy: jnowak (hasło: test123)  
 Przykładowy użytkownik admninistrator: admin (hasło: admin)  
 URL strony administratora: http://localhost:8080/Adboard/admin (wpisane z klawiatury)
 
