@@ -10,7 +10,6 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,7 +29,10 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 			session.save(entity);
 			tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
 		} finally {
 			session.close();
 		}
@@ -45,14 +47,15 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<T> cq = builder.createQuery(entityClass);
-			Root<T> root = cq.from(entityClass);
-			CriteriaQuery<T> all = cq.select(root);
-			Query<T> sq = session.createQuery(all);
-			list = sq.getResultList();
+			CriteriaQuery<T> criteria = builder.createQuery(entityClass);
+			Root<T> root = criteria.from(entityClass);
+			list = session.createQuery(criteria.select(root)).getResultList();
 			tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
 		} finally {
 			session.close();
 		}
@@ -70,7 +73,10 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 			session.delete(thisEntity);
 			tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
 		} finally {
 			session.close();
 		}
@@ -86,7 +92,10 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 			session.saveOrUpdate(entity);
 			tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
 		} finally {
 			session.close();
 		}
@@ -103,7 +112,10 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 			thisObject = session.get(entityClass, id);
 			tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
 		} finally {
 			session.close();
 		}

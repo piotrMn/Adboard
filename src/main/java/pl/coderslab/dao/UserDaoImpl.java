@@ -1,10 +1,14 @@
 package pl.coderslab.dao;
 
-import org.hibernate.HibernateException;
+import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,24 +21,26 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public void saveUserWithRole(User user, Role role) {
+	public void saveUserWithRoles(User user, Role[] roles) {
 		Session session = null;
 		Transaction tx = null;
-		Authority auth = new Authority();
-		auth.setUsername(user.getUsername());
-		auth.setAuthority(role.toString());
-		try {
-			session = sessionFactory.getCurrentSession();
-		} catch (HibernateException he) {
-			session = sessionFactory.openSession();
+		Authority[] authorities = new Authority[roles.length];
+		for (int i = 0; i < authorities.length; i++) {
+			authorities[i] = new Authority(user.getUsername(), roles[i].toString());
 		}
 		try {
+			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			session.save(user);
-			session.save(auth);
+			for (int i = 0; i < authorities.length; i++) {
+				session.save(authorities[i]);
+			}
 			tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
 		} finally {
 			session.close();
 		}
@@ -48,15 +54,55 @@ public class UserDaoImpl implements UserDao {
 		try {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			Query<User> query = session.createQuery("from User u where u.username=:username");
-			query.setParameter("username", username);
-			thisUser = query.getSingleResult();
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<User> criteria = builder.createQuery(User.class);
+			Root<User> userRoot = criteria.from(User.class);
+			criteria.select(userRoot).where(builder.equal(userRoot.get("username"), username));
+			thisUser = session.createQuery(criteria).getSingleResult();
 			tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
 		} finally {
 			session.close();
 		}
 		return thisUser;
+	}
+
+	@Override
+	public void deleteUserByUsernameWithRoles(String username) {
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
+			//szukanie użytkownika
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<User> userCriteria = builder.createQuery(User.class);
+			Root<User> userRoot = userCriteria.from(User.class);
+			userCriteria.select(userRoot).where(builder.equal(userRoot.get("username"), username));
+			User thisUser = session.createQuery(userCriteria).getSingleResult();
+			//szukanie odpowiadających mu rekordów z tablicy "authorities"
+			CriteriaQuery<Authority> authorityCriteria = builder.createQuery(Authority.class);
+			Root<Authority> authorityRoot = authorityCriteria.from(Authority.class);
+			authorityCriteria.select(authorityRoot).where(builder.equal(authorityRoot.get("username"), username));
+			List<Authority> theAuthorities = session.createQuery(authorityCriteria).getResultList();
+			//usuwanie rekordu z tablicy "users"
+			session.delete(thisUser);
+			//usuwanie rekordu/rekordów z tablicy "authorities"
+			for (Authority authority : theAuthorities) {
+				session.delete(authority);
+			}
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			session.close();
+		}
 	}
 }

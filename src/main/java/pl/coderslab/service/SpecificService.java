@@ -8,7 +8,9 @@ import pl.coderslab.entity.User;
 
 public interface SpecificService {
 	
-	public void saveUserWithRole(User user, Role role);
+	public void saveUserWithRoles(User user, Role[] roles);
+	
+	public void deleteUserByUsernameWithRoles(String username);
 	
 	public User getUserByUsername(String username);
 	
@@ -16,7 +18,6 @@ public interface SpecificService {
 	
 	public List<Ad> getAllAdsByUserId(Long id);
 	
-	
-	
+	public void deleteAdById(long id);
 
 }

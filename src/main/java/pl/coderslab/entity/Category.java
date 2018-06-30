@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "categories")
@@ -23,6 +24,7 @@ public class Category implements Comparable<Category> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@Size(min = 4, max = 30, message = "Co najmniej 4 znaki.")
 	private String name;
 	
 	@Column(columnDefinition = "MEDIUMTEXT")

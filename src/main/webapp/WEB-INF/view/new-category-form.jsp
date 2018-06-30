@@ -22,15 +22,18 @@
 				<tr>
 					<td>Nazwa</td>
 					<td><form:input path="name" size="60"/></td>
+					<td><form:errors path="name" cssClass="error"/></td>
 				</tr>
 				<tr>
 					<td>Opis</td>
 					<td><form:textarea path="description" rows="2" cols="60" /></td>
+					<td></td>
 				</tr>
 				<tr><td colspan="2" style="height: 20px;"></td></tr>
 				<tr>
 					<td><input type="submit" value="Zatwierdź" role="button" class="btn btn-secondary" aria-pressed="true"></td>
 					<td style="text-align: center"><a href="${pageContext.request.contextPath}/admin" role="button" class="btn btn-secondary" aria-pressed="true" >Anuluj</a><td>
+					<td></td>
 				</tr>
 			</table>
 		</form:form>

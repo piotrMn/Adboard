@@ -17,19 +17,22 @@
 	<div id="container">
 		<h4>Nowe ogłoszenie</h4>
 		<hr>
-		<form:form modelAttribute="ad" method="POST" action="${pageContext.request.contextPath }/user/new-ad"  acceptCharset="UTF-8">
+		<form:form modelAttribute="newAd" method="POST" action="${pageContext.request.contextPath }/user/new-ad"  acceptCharset="UTF-8">
 			<table>
 				<tr>
 					<td>Tytuł</td>
 					<td><form:input path="title" size="60"/></td>
+					<td><form:errors path="title" cssClass="error"/></td>
 				</tr>
 				<tr>
 					<td>Opis</td>
 					<td><form:textarea path="description" rows="7" cols="60" /></td>
+					<td><form:errors path="description" cssClass="error"/></td>
 				</tr>
 				<tr>
 					<td>Miejsce</td>
 					<td><form:input path="location" size="60"/></td>
+					<td><form:errors path="location" cssClass="error"/></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="Zatwierdź" role="button" class="btn btn-secondary" aria-pressed="true"></td>

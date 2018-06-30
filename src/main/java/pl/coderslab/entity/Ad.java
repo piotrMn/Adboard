@@ -16,6 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 import pl.coderslab.entity.Category;
@@ -28,11 +30,14 @@ public class Ad {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@Size(min = 6, message = "Co najmniej 6 znaków.")
 	private String title;
 
 	@Column(columnDefinition = "MEDIUMTEXT")
+	@NotBlank(message = "Pole nie może byc puste.")
 	private String description;
 	
+	@NotBlank(message = "Pole nie może byc puste.")
 	private String location;
 	
 	@CreationTimestamp
@@ -43,7 +48,7 @@ public class Ad {
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch=FetchType.EAGER)
 	private User user;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "ad_category",
 			joinColumns = @JoinColumn(name = "ad_id"),

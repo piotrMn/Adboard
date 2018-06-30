@@ -8,6 +8,8 @@ public interface AdDao {
 	
 	public List<Ad> getAllCurrentAds();
 	
-	public List<Ad> getAllAdsByUserId(Long id);
+	public List<Ad> getAllAdsByUserId(long id);
+	
+	public void deleteAdById(long id);
 	
 }

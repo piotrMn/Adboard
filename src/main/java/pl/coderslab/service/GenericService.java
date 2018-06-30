@@ -13,6 +13,5 @@ public interface GenericService<T> {
 	public void updateEntity(T entity);
 	
 	public T getEntityById(Class<T> entityClass, long id);
-	
 
 }

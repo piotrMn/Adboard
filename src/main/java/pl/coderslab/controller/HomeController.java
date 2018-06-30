@@ -68,13 +68,14 @@ public class HomeController {
 		if (user.getPassword().equals(password2)) {
 			user.setPassword("{bcrypt}" + BCrypt.hashpw(password2, BCrypt.gensalt()));
 			user.setEnabled(1);
-			specificService.saveUserWithRole(user, Role.ROLE_USER);
+			specificService.saveUserWithRoles(user, new Role[] { Role.ROLE_USER });
 		} else {
 			model.addAttribute("error", "mismatch");
 			return "signup-form";
 		}
 		return "redirect:/user";
 	}
+	
 
 	@ModelAttribute("currentAds")
 	public List<Ad> getCurrentAds() {

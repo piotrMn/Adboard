@@ -3,21 +3,26 @@ package pl.coderslab.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pl.coderslab.entity.Ad;
 import pl.coderslab.entity.Category;
-import pl.coderslab.service.AdServiceImpl;
-import pl.coderslab.service.CatServiceImpl;
 import pl.coderslab.service.GenericService;
+import pl.coderslab.service.SpecificService;
 
 @Controller
 @RequestMapping("/admin")
@@ -28,6 +33,9 @@ public class AdminController {
 	
 	@Autowired
 	GenericService<Ad> adService;
+	
+	@Autowired
+	SpecificService specificService;
 	
 	@RequestMapping("")
 	public String showAdminPage() {
@@ -59,8 +67,8 @@ public class AdminController {
 	
 	@GetMapping("/delete-ad/{id}")
 	public String deleteAd(@PathVariable("id") long id) {
-		adService.deleteEntityById(Ad.class, id);
-		return "redirect:/admin";
+		specificService.deleteAdById(id);
+		return "redirect:/admin/manage";
 	}
 	
 	@GetMapping("/edit-category/{id}")
@@ -77,32 +85,39 @@ public class AdminController {
 	}
 	
 	@GetMapping("/edit-ad/{id}")
-	public String showAdEditPage(@PathVariable("id") long id, Model model) {
+	public String showAdEditPage(@PathVariable("id") long id, Model model, HttpServletRequest request) {
 		Ad thisAd = adService.getEntityById(Ad.class, id);
+		request.getSession().setAttribute("categories", thisAd.getCategories());
 		model.addAttribute("thisAd", thisAd);
 		return "ad-edit-form-admin";
 	}
 	
-	@PostMapping("/edit-ad")
-	public String showAdEditPagePost(@ModelAttribute("thisAd") Ad thisAd) {
+	@PostMapping("/edit-ad/{id}")
+	public String showAdEditPagePost(@Valid Ad thisAd, BindingResult result, HttpServletRequest request) {
+		if(result.hasErrors()) {
+			return "ad-edit-form-admin";
+		}
+		List<Category> cateogries = (List<Category>) request.getSession().getAttribute("categories");
+		thisAd.setCategories(cateogries);
 		adService.updateEntity(thisAd);
+		request.getSession().removeAttribute("categories");
 		return "redirect:/admin/manage";
 	}
 	
-	@GetMapping("/asign-category/{id}")
+	@GetMapping("/assign-category/{id}")
 	public String addCategory(@PathVariable("id") long id, Model model) {
 		Ad thisAd = adService.getEntityById(Ad.class, id);
 		model.addAttribute("thisAd", thisAd);
 		List<Category> allCategories = catService.getAllEntities(Category.class);
 		model.addAttribute("allCategories", allCategories);
-		return "asign-category-form";
+		return "assign-category-form";
 	}
 	
-	@PostMapping("/asign-category/{id}")
-	public String addCategoryPost(@PathVariable("id") long id, @RequestParam("categories") List<String> categoriesIdRaw, Model model) {
+	@PostMapping("/assign-category/{id}")
+	public String addCategoryPost(@PathVariable("id") long id, @RequestParam("categories") List<String> categoriesIdRaw, Model model, HttpServletRequest request) {
 		if(categoriesIdRaw.size() > 3) {
-			model.addAttribute("error", "toomany");
-			return "asign-category-form";
+			request.setAttribute("error", "toomany");
+			return "assign-category-form";
 		}
 		Ad thisAd = adService.getEntityById(Ad.class, id);
 		List<Category> categories = new ArrayList<>();
@@ -114,7 +129,7 @@ public class AdminController {
 		}
 		thisAd.getCategories().clear();
 		thisAd.getCategories().addAll(categories);
-		adService.saveEntity(thisAd);
+		adService.updateEntity(thisAd);
 		return "redirect:/admin/manage";
 	}
 	

@@ -4,9 +4,9 @@ import pl.coderslab.entity.User;
 
 public interface UserDao {
 	
-	public void saveUserWithRole(User user, Role role);
+	public void saveUserWithRoles(User user, Role[] roles);
+	
+	public void deleteUserByUsernameWithRoles(String username);
 	
 	public User getUserByUsername(String username);
-	
-
 }

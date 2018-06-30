@@ -51,7 +51,7 @@
 						<c:out value="${ad.getDescription() }"/>
 						<c:set value="${ad.getCategories() }" var="categories"></c:set>
 						<c:if test="${not empty categories }">
-						Kategorie: <div><c:forEach items="${categories }" var="cat"><c:out value="${cat.getName() }"/>&nbsp&nbsp&nbsp</c:forEach></div><br>
+						<div>Kategorie: <c:forEach items="${categories }" var="cat"><c:out value="${cat.getName() }"/>&nbsp&nbsp&nbsp</c:forEach></div><br>
 						</c:if>
 						</div>
 						<%i++; %>

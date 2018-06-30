@@ -38,5 +38,4 @@ public class UserServiceImpl implements GenericService<User> {
 	public User getEntityById(Class<User> entityClass, long id) {
 		return userDao.getEntityById(User.class, id);
 	}
-
 }

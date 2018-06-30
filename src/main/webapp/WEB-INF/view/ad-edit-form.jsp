@@ -17,23 +17,26 @@
 	<div id="container">
 		<h4>Edycja ogłoszenia</h4>
 		<hr>
-		<form:form modelAttribute="ad" method="POST" action="${pageContext.request.contextPath }/user/edit-ad }"  acceptCharset="UTF-8">
+		<form:form modelAttribute="thisAd" method="POST" action="${pageContext.request.contextPath }/user/edit-ad/${ad.getId() }}">
 			<form:hidden path="id" value="${ad.getId() }" />
-			<form:hidden path="creationTimestamp" value="${ad.getCreationTimestamp() }"/>
-			<form:hidden path="expiryTimestamp" value="${ad.getExpiryTimestamp() }"/>
-			<form:hidden path="user.id" value="${ad.getUser().getId()}"/>
+			<form:hidden path="creationTimestamp" value="${thisAd.getCreationTimestamp() }"/>
+			<form:hidden path="expiryTimestamp" value="${thisAd.getExpiryTimestamp() }"/>
+			<form:hidden path="user.id" value="${thisAd.getUser().getId()}"/>
 			<table>
 				<tr>
 					<td>Tytuł</td>
-					<td><form:input path="title" value="${ad.getTitle() }" size="60"/></td>
+					<td><form:input path="title" value="${thisAd.getTitle() }" size="60"/></td>
+					<td><form:errors path="title" cssClass="error"/></td>
 				</tr>
 				<tr>
 					<td>Opis</td>
-					<td><form:textarea path="description" value="${ad.getDescription() }" rows="7" cols="60" /></td>
+					<td><form:textarea path="description" value="${thisAd.getDescription() }" rows="7" cols="60" /></td>
+					<td><form:errors path="description" cssClass="error"/></td>
 				</tr>
 				<tr>
 					<td>Miejsce</td>
-					<td><form:input path="location" value="${ad.getLocation() }" /></td>
+					<td><form:input path="location" value="${thisAd.getLocation() }" /></td>
+					<td><form:errors path="location" cssClass="error"/></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="Zatwierdź" role="button" class="btn btn-secondary" aria-pressed="true"></td>

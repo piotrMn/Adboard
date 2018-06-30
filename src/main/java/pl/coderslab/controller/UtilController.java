@@ -14,12 +14,8 @@ import pl.coderslab.dao.Role;
 import pl.coderslab.entity.Ad;
 import pl.coderslab.entity.Category;
 import pl.coderslab.entity.User;
-import pl.coderslab.service.AdServiceImpl;
-import pl.coderslab.service.CatServiceImpl;
 import pl.coderslab.service.GenericService;
 import pl.coderslab.service.SpecificService;
-import pl.coderslab.service.SpecificServiceImpl;
-import pl.coderslab.service.UserServiceImpl;
 
 @Controller
 @RequestMapping("/util")
@@ -86,14 +82,13 @@ public class UtilController {
 //		specificService.saveUserWithRole(user5, Role.ROLE_ADMIN);
 		
 		User user6 = new User();
-		user6.setFullname("Marian Miller");
-		user6.setUsername("marian");
-		user6.setEmail("miller@gmail.com");
+		user6.setFullname("Marcin Miller");
+		user6.setUsername("miller");
+		user6.setEmail("mmiller@gmail.com");
 		user6.setPhone("671428229");
 		user6.setPassword("{bcrypt}" + BCrypt.hashpw("Test1234", BCrypt.gensalt()));
 		user6.setEnabled(1);
-		specificService.saveUserWithRole(user6, Role.ROLE_USER);
-
+		specificService.saveUserWithRoles(user6, new Role[] {Role.ROLE_USER, Role.ROLE_ADMIN});
 		return "users added";
 	}
 

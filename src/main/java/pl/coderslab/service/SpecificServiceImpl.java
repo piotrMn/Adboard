@@ -20,10 +20,6 @@ public class SpecificServiceImpl implements SpecificService {
 	@Autowired
 	AdDao adDao;
 
-	@Override
-	public void saveUserWithRole(User user, Role role) {
-		userDao.saveUserWithRole(user, role);
-	}
 
 	@Override
 	public List<Ad> getAllCurrentAds() {
@@ -38,6 +34,21 @@ public class SpecificServiceImpl implements SpecificService {
 	@Override
 	public List<Ad> getAllAdsByUserId(Long id) {
 		return adDao.getAllAdsByUserId(id);
+	}
+
+	@Override
+	public void saveUserWithRoles(User user, Role[] roles) {
+		userDao.saveUserWithRoles(user, roles);
+	}
+
+	@Override
+	public void deleteUserByUsernameWithRoles(String username) {
+		userDao.deleteUserByUsernameWithRoles(username);
+	}
+
+	@Override
+	public void deleteAdById(long id) {
+		adDao.deleteAdById(id);
 	}
 
 

@@ -18,7 +18,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import pl.coderslab.validator.Password;
 import pl.coderslab.validator.Phone;
@@ -36,11 +35,11 @@ public class User {
 	private String fullname;
 
 	@NotBlank(message = "Pole nie może byc puste.")
-	@Size(min = 6, max = 30, message = "Co najmniej 6 znaków")
+	@Size(min = 5, max = 30, message = "Co najmniej 5 znaków")
 	private String username;
 
 	@Column(columnDefinition="VARCHAR(68)")
-//	@Password(message = "8-30 znaków. Wielka litera, mała i cyfra")
+	@Password(message = "8-30 znaków. Wielka litera, mała i cyfra")
 	private String password;
 	
 	@Column(columnDefinition="TINYINT(1)")
