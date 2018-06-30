@@ -54,7 +54,10 @@ public class AdminController {
 	}
 
 	@PostMapping("/new-category")
-	public String addCategoryPost(@ModelAttribute("category") Category category) {
+	public String addCategoryPost(@Valid Category category, BindingResult result) {
+		if (result.hasErrors()) {
+			return "new-category-form";
+		}
 		catService.saveEntity(category);
 		return "redirect:/admin";
 	}

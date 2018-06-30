@@ -27,7 +27,7 @@
 							<b style="line-height: 0.75em;"><c:out value="${ad.getTitle() }"/></b>
 							<a href="${pageContext.request.contextPath }/admin/delete-ad/${ad.getId()}" class="btn floating-btn" onclick="return confirm('Na pewno usunąć?')">Usuń</a>
 							<a href="${pageContext.request.contextPath }/admin/edit-ad/${ad.getId()}" class="btn floating-btn">Edytuj</a>
-							<a href="${pageContext.request.contextPath }/admin/asign-category/${ad.getId()}" class="btn floating-btn">Przypisz kategorie</a>						
+							<a href="${pageContext.request.contextPath }/admin/assign-category/${ad.getId()}" class="btn floating-btn">Przypisz kategorie</a>						
 						</div>
 						<hr>
 						Opublikował: <c:out value="${ad.getUser().getFullname() }"/>   (<c:out value="${ad.getUser().getUsername() }"/>)<br>
