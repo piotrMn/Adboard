@@ -4,7 +4,7 @@
     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
@@ -38,23 +38,36 @@
 			<div class="col-10">
 				<div id="ad-box">
 				<%int i = 1; %>
-				<c:forEach items="${currentAds}" var="ad">
-					<div class="ad-list-item" data-row="<%=i %>">
-						<b style="line-height: 0.75em;"><c:out value="${ad.getTitle() }"/></b>
-						<hr>
-						opublikował: <c:out value="${ad.getUser().getFullname() }"/><br>
-						telefon: <c:out value="${ad.getUser().getPhone() }"/><br>
-						miejsce: <c:out value="${ad.getLocation() }"/><br>
-						<c:set value="${ad.getExpiryTimestamp() }" var="expiry"/>
-						ważne do: <fmt:formatDate value="${expiry }" type="date" pattern="dd-MM-yyyy"/><br>
-						<hr>
-						<c:out value="${ad.getDescription() }"/>
-						<c:set value="${ad.getCategories() }" var="categories"></c:set>
-						<c:if test="${not empty categories }">
-						<div>Kategorie: <c:forEach items="${categories }" var="cat"><c:out value="${cat.getName() }"/>&nbsp&nbsp&nbsp</c:forEach></div><br>
-						</c:if>
+					<c:forEach items="${currentAds}" var="ad">
+						<c:set value="${ad.getComments() }" var="comments"/>
+						<div class="ad-list-item" data-row="<%=i %>"><%i++; %>
+							<c:if test="${not empty comments }">
+								<button class="show-comments-btn" style="float: right;">Zobacz komentarze</button>
+							</c:if>
+							<b style="line-height: 0.75em;"><c:out value="${ad.getTitle() }"/></b>
+							<hr>
+							opublikował: <c:out value="${ad.getUser().getFullname() }"/><br>
+							telefon: <c:out value="${ad.getUser().getPhone() }"/><br>
+							miejsce: <c:out value="${ad.getLocation() }"/><br>
+							<c:set value="${ad.getExpiryTimestamp() }" var="expiry"/>
+							ważne do: <fmt:formatDate value="${expiry }" type="date" pattern="dd-MM-yyyy"/><br>
+							<hr>
+							<c:out value="${ad.getDescription() }"/>
+							<c:set value="${ad.getCategories() }" var="categories"></c:set>
+							<c:if test="${not empty categories }">
+								<div>Kategorie: <c:forEach items="${categories }" var="cat"><c:out value="${cat.getName() }"/>&nbsp&nbsp&nbsp</c:forEach></div>
+							</c:if>
 						</div>
-						<%i++; %>
+						<c:if test="${not empty comments }">
+							<div class="comment-box hide">
+								<c:forEach items="${comments }" var="comment">
+									<div class="comment-item">
+										<b><c:out value="${comment.getUser().getUsername() }"/></b>
+										<c:out value="${comment.getContent() }"/>
+									</div>
+								</c:forEach>							
+							</div>
+						</c:if>
 					</c:forEach>
 				</div>
 			</div>

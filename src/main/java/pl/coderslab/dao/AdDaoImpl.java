@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -32,12 +33,9 @@ public class AdDaoImpl implements AdDao {
 		try {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<Ad> criteria = builder.createQuery(Ad.class);
-			Root<Ad> adRoot = criteria.from(Ad.class);
-			criteria.select(adRoot)
-					.where(builder.greaterThan(adRoot.get("expiryTimestamp"), Timestamp.valueOf(LocalDateTime.now())));
-			currentAds = session.createQuery(criteria).getResultList();
+			Query<Ad> query = session.createQuery("from Ad a where a.expiryTimestamp>:now");
+			query.setParameter("now", Timestamp.valueOf(LocalDateTime.now()));
+			currentAds = query.getResultList();
 			tx.commit();
 		} catch (Exception e) {
 			if (tx != null) {

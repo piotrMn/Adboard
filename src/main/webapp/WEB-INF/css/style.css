@@ -47,3 +47,30 @@
 	display: inline-block; 
 	padding-right: 20px;
 }
+
+.comment-box{
+	padding: 0.5em;
+	margin: 0.5em;
+	border: 1px dotted darkgray;
+	border-radius: 0.5em;
+}
+
+.comment-item{
+	padding-bottom: 0.5em;
+}
+
+.hide{
+	display: none;
+}
+
+.show-comments-btn:hover{
+	cursor: pointer;
+}
+
+.add-comment-btn:hover{
+	cursor: pointer;
+}
+
+.new-comment-box{
+	padding: 0.5em;
+}

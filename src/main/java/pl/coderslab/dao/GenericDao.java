@@ -2,7 +2,7 @@ package pl.coderslab.dao;
 
 import java.util.List;
 
-public interface GenericDao<T> {
+public interface GenericDao<T>  {
 	
 	public void saveEntity(T entity);
 	

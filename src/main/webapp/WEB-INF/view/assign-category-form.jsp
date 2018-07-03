@@ -5,12 +5,14 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
     <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 	<style><%@include file="/WEB-INF/css/style.css"%></style>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+	<meta name="_csrf" content="${_csrf.token}"/>
 	<title>Insert title here</title>
 </head>
 <body>
@@ -22,7 +24,7 @@
 				<div class="ad-list-item">
 					<b style="line-height: 0.75em;"><c:out value="${thisAd.getTitle() }"/></b>
 					<hr>
-					opublikował: <c:out value="${ad.getUser().getFullname() }"/><br>
+					opublikował: <c:out value="${thisAd.getUser().getFullname() }"/><br>
 					telefon: <c:out value="${thisAd.getUser().getPhone() }"/><br>
 					miejsce: <c:out value="${thisAd.getLocation() }"/><br>
 					<c:set value="${thisAd.getExpiryTimestamp() }" var="expiry"/>

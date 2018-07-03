@@ -4,6 +4,7 @@ import java.util.List;
 
 import pl.coderslab.dao.Role;
 import pl.coderslab.entity.Ad;
+import pl.coderslab.entity.Comment;
 import pl.coderslab.entity.User;
 
 public interface SpecificService {
@@ -19,5 +20,10 @@ public interface SpecificService {
 	public List<Ad> getAllAdsByUserId(Long id);
 	
 	public void deleteAdById(long id);
+	
+	public List<Comment> getCommentsByAdId(long id);
+	
+	public void saveComment(Comment comment);
+	
 
 }

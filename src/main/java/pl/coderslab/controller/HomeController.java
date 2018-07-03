@@ -15,17 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import pl.coderslab.dao.Role;
 import pl.coderslab.entity.Ad;
 import pl.coderslab.entity.Category;
 import pl.coderslab.entity.User;
-import pl.coderslab.service.CatServiceImpl;
 import pl.coderslab.service.GenericService;
 import pl.coderslab.service.SpecificService;
-import pl.coderslab.service.SpecificServiceImpl;
-import pl.coderslab.service.UserServiceImpl;
 
 @Controller
 @RequestMapping("")

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import pl.coderslab.entity.Ad;
 import pl.coderslab.entity.Category;
@@ -118,11 +116,12 @@ public class AdminController {
 	
 	@PostMapping("/assign-category/{id}")
 	public String addCategoryPost(@PathVariable("id") long id, @RequestParam("categories") List<String> categoriesIdRaw, Model model, HttpServletRequest request) {
+		Ad thisAd = adService.getEntityById(Ad.class, id);
 		if(categoriesIdRaw.size() > 3) {
+			model.addAttribute("thisAd", thisAd);
 			request.setAttribute("error", "toomany");
 			return "assign-category-form";
 		}
-		Ad thisAd = adService.getEntityById(Ad.class, id);
 		List<Category> categories = new ArrayList<>();
 		for(String catId : categoriesIdRaw) {
 			Long thisId = Long.parseLong(catId);

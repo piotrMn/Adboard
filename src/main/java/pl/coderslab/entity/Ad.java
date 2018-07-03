@@ -15,16 +15,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
-import pl.coderslab.entity.Category;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 @Table(name = "ads")
-public class Ad {
+public class Ad implements Comparable<Ad> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +62,12 @@ public class Ad {
 			joinColumns = @JoinColumn(name = "ad_id"),
 			inverseJoinColumns = @JoinColumn(name = "category_id")
 			)
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Category> categories = new ArrayList<>();
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "ad")
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Comment> comments = new ArrayList<>();
 
 	//constructor
 	public Ad() {
@@ -125,11 +138,24 @@ public class Ad {
 		this.categories = categories;
 	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	@Override
-	public String toString() {
-		return "Ad [id=" + id + ", title=" + title + ", description=" + description + ", location=" + location
-				+ ", creationTimestamp=" + creationTimestamp + ", expiryTimestamp=" + expiryTimestamp + ", user=" + user
-				+ "]";
+	public int compareTo(Ad o) {
+		if (this.getCreationTimestamp().before(o.getCreationTimestamp())) {
+			return -1;
+		}
+		if (this.getCreationTimestamp().equals(o.getCreationTimestamp())) {
+			return 0;
+		} else{
+			return 1;
+		}
 	}
 	
 	

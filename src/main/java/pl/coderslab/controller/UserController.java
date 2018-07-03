@@ -2,6 +2,7 @@ package pl.coderslab.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,15 +37,19 @@ public class UserController {
 
 	@Autowired
 	GenericService<User> userService;
+	
+	@Autowired
+	GenericService<Category> catService;
 
 	@RequestMapping("")
-	public String showHomePageUser(Model model) {
+	public String showHomePageUser(Model model, HttpServletRequest request) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		if (username != null) {
 			User thisUser = specificService.getUserByUsername(username);
 			if (thisUser != null) {
 				List<Ad> theAds = specificService.getAllAdsByUserId(thisUser.getId());
-				model.addAttribute("ads", theAds);
+				request.setAttribute("loggedUserId", thisUser.getId());
+				model.addAttribute("myAds", theAds);
 			}
 		}
 		return "home-user";
@@ -104,6 +110,26 @@ public class UserController {
 			specificService.deleteUserByUsernameWithRoles(username);
 		}
 		return "redirect:/";
+	}
+	@GetMapping("/my-ads/{id}")
+	public String showMyAddsPage(@PathVariable("id") long id, Model model) {
+		User thisUser = userService.getEntityById(User.class, id);
+		List<Ad> hisAds = thisUser.getAds();
+		model.addAttribute("ads", hisAds);
+		return "my-ads";
+		
+	}
+	
+	@ModelAttribute("currentAds")
+	public List<Ad> getCurrentAds() {
+		return specificService.getAllCurrentAds();
+	}
+	
+	@ModelAttribute("allCategories")
+	public List<Category> addCategories() {
+		List<Category> allCategories = catService.getAllEntities(Category.class);
+		Collections.sort(allCategories);
+		return allCategories;
 	}
 
 }
