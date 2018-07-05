@@ -81,7 +81,7 @@ public class AdDaoImpl implements AdDao {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			Ad thisAd = session.get(Ad.class, id);
-			thisAd.getUser().getAds().remove(thisAd);
+//			thisAd.getUser().getAds().remove(thisAd);
 			for (Category category : thisAd.getCategories()) {
 				category.getAds().remove(thisAd);
 			}

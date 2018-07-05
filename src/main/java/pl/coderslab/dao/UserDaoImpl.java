@@ -2,6 +2,7 @@ package pl.coderslab.dao;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -58,7 +59,11 @@ public class UserDaoImpl implements UserDao {
 			CriteriaQuery<User> criteria = builder.createQuery(User.class);
 			Root<User> userRoot = criteria.from(User.class);
 			criteria.select(userRoot).where(builder.equal(userRoot.get("username"), username));
-			thisUser = session.createQuery(criteria).getSingleResult();
+			try {
+				thisUser = session.createQuery(criteria).getSingleResult();
+			} catch (NoResultException e) {
+				thisUser = null;
+			}
 			tx.commit();
 		} catch (Exception e) {
 			if (tx != null) {

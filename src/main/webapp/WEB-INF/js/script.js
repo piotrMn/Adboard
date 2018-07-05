@@ -11,7 +11,6 @@ $(function() {
 				if($(element).find("div").text().indexOf(category) >= 0){
 					$(element).show();
 				}
-				
 			})
 		}
 	})
@@ -73,7 +72,7 @@ $(function() {
 				'Content-Type' : 'application/json'
 			},
 			beforeSend: function(xhr){
-				xhr.setRequestHeader(header, token)
+				xhr.setRequestHeader(header, token);
 			},
 			data : JSON.stringify({
 				"content" : content,

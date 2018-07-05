@@ -21,6 +21,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import pl.coderslab.validator.Password;
 import pl.coderslab.validator.Phone;
 
@@ -57,13 +59,15 @@ public class User {
 	@CreationTimestamp
 	private Timestamp creationTimestamp;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Ad> ads = new ArrayList<>();
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Comment> comments = new ArrayList<>();
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+//	@Fetch(value = FetchMode.SUBSELECT)
+//	@JsonBackReference
+//	private List<Ad> ads = new ArrayList<>();
+//
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+//	@Fetch(value = FetchMode.SUBSELECT)
+//	@JsonBackReference
+//	private List<Comment> comments = new ArrayList<>();
 
 	// constructor
 	public User() {
@@ -126,14 +130,14 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public List<Ad> getAds() {
-		return ads;
-	}
-
-	public void setAds(List<Ad> ads) {
-		this.ads = ads;
-	}
-
+//	public List<Ad> getAds() {
+//		return ads;
+//	}
+//
+//	public void setAds(List<Ad> ads) {
+//		this.ads = ads;
+//	}
+//
 	public String getPhone() {
 		return phone;
 	}
@@ -141,14 +145,14 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
+//
+//	public List<Comment> getComments() {
+//		return comments;
+//	}
+//
+//	public void setComments(List<Comment> comments) {
+//		this.comments = comments;
+//	}
 
 
 }

@@ -32,7 +32,7 @@ public class HomeController {
 
 	@Autowired
 	GenericService<Category> catService;
-
+	
 	@RequestMapping("")
 	public String showHome() {
 		return "home";
@@ -75,7 +75,8 @@ public class HomeController {
 
 	@ModelAttribute("currentAds")
 	public List<Ad> getCurrentAds() {
-		return specificService.getAllCurrentAds();
+		List<Ad> allAds = specificService.getAllCurrentAds();
+		return allAds;
 	}
 
 	@ModelAttribute("allCategories")

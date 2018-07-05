@@ -63,10 +63,12 @@ public class Ad implements Comparable<Ad> {
 			inverseJoinColumns = @JoinColumn(name = "category_id")
 			)
 	@Fetch(value = FetchMode.SUBSELECT)
+	@JsonBackReference
 	private List<Category> categories = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "ad")
 	@Fetch(value = FetchMode.SUBSELECT)
+	@JsonBackReference
 	private List<Comment> comments = new ArrayList<>();
 
 	//constructor

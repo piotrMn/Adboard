@@ -35,7 +35,7 @@
 			</div>
 			<div class="col-3">
 				<form action="${pageContext.request.contextPath}/admin/assign-category/${thisAd.getId() }" method="post">
-					<select multiple="multiple" name="categories">
+					<select multiple="multiple" name="categories" style="height: 150px; width: 150px;">
 						<c:forEach items="${allCategories }" var="category">
 							<option value="${category.getId() }" label="${category.getName() }">
 						</c:forEach>

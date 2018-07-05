@@ -46,23 +46,21 @@
 			</div>
 		</div>
 		<c:if test="${not empty ads }">
-			<div id="ad-box">
-				<b>Twoje ogłoszenia</b>
-				<c:forEach items="${ads}" var="ad">
-					<div class="ad-list-item">
-						<div>
-							<b style="line-height: 0.75em;"><c:out value="${ad.getTitle() }"/></b>
-							<a href="${pageContext.request.contextPath }/user/edit-ad/${ad.getId()}" class="btn floating-btn">Edytuj</a>
-							<a href="${pageContext.request.contextPath }/user/delete-ad/${ad.getId()}" class="btn floating-btn" onclick="return confirm('Na pewno usunąć?')">Usuń</a>						
-						</div>
-						<hr>
-						<c:set value="${ad.getExpiryTimestamp() }" var="expiry"/>
-						ważne do: <fmt:formatDate value="${expiry }" type="date" pattern="dd-MM-yyyy"/><br>
-						<hr>
-						<c:out value="${ad.getDescription() }"/>
+			<b>Twoje ogłoszenia</b>
+			<c:forEach items="${ads}" var="ad">
+				<div class="ad-list-item">
+					<div>
+						<b style="line-height: 0.75em;"><c:out value="${ad.getTitle() }"/></b>
+						<a href="${pageContext.request.contextPath }/user/edit-ad/${ad.getId()}" class="btn floating-btn">Edytuj</a>
+						<a href="${pageContext.request.contextPath }/user/delete-ad/${ad.getId()}" class="btn floating-btn" onclick="return confirm('Na pewno usunąć?')">Usuń</a>						
 					</div>
-				</c:forEach>
-			</div>
+					<hr>
+					<c:set value="${ad.getExpiryTimestamp() }" var="expiry"/>
+					ważne do: <fmt:formatDate value="${expiry }" type="date" pattern="dd-MM-yyyy"/><br>
+					<hr>
+					<c:out value="${ad.getDescription() }"/>
+				</div>
+			</c:forEach>
 		</c:if>
 		<c:if test="${empty ads }">
 			<b>Nie opublikowaleś jeszcze ogłoszeń.</b>

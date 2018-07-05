@@ -55,9 +55,9 @@ public class CommentDaoImpl implements CommentDao {
 		try {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			User thisUser = session.get(User.class, comment.getUser().getId());
+//			User thisUser = session.get(User.class, comment.getUser().getId());
 			Ad thisAd = session.get(Ad.class, comment.getAd().getId());
-			thisUser.getComments().add(comment);
+//			thisUser.getComments().add(comment);
 			thisAd.getComments().add(comment);
 			session.save(comment);
 			tx.commit();

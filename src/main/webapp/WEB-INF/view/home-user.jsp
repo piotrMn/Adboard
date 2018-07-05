@@ -59,49 +59,48 @@
 				</c:if>
 			</div>
 			<div class="col-10">
-				<div id="ad-box">
 				<%int i = 1; %>
-					<c:forEach items="${currentAds}" var="ad">
-						<c:set value="${ad.getComments() }" var="comments"/>
-						<div class="ad-list-item" data-row="<%=i %>"><%i++; %>
-							<c:if test="${not empty comments }">
-								<button class="show-comments-btn" style="float: right;">Zobacz komentarze</button>
-							</c:if>
-							<button class="add-comment-btn" style="float: right;">Dodaj komentarz</button>
-							<b style="line-height: 150%;"><c:out value="${ad.getTitle() }"/></b>
-							<br>
-							opublikował: <c:out value="${ad.getUser().getFullname() }"/><br>
-							telefon: <c:out value="${ad.getUser().getPhone() }"/><br>
-							miejsce: <c:out value="${ad.getLocation() }"/><br>
-							<c:set value="${ad.getExpiryTimestamp() }" var="expiry"/>
-							ważne do: <fmt:formatDate value="${expiry }" type="date" pattern="dd-MM-yyyy"/>
-							<br>
-							<c:out value="${ad.getDescription() }"/>
-							<c:set value="${ad.getCategories() }" var="categories"></c:set>
-							<c:if test="${not empty categories }">
-								<div>Kategorie: <c:forEach items="${categories }" var="cat"><c:out value="${cat.getName() }"/>&nbsp&nbsp&nbsp</c:forEach></div>
-							</c:if>
-						</div>
+				<c:forEach items="${currentAds}" var="ad">
+					<c:set value="${ad.getComments() }" var="comments"/>
+					<div class="ad-list-item" data-row="<%=i %>"><%i++; %>
 						<c:if test="${not empty comments }">
-							<div class="comment-box hide">
-								<c:forEach items="${comments }" var="comment">
-									<div class="comment-item">
-										<b><c:out value="${comment.getUser().getUsername() }"/></b>
-										<c:out value="${comment.getContent() }"/>
-									</div>
-								</c:forEach>							
-							</div>
+							<button class="show-comments-btn" style="float: right;">Zobacz komentarze</button>
 						</c:if>
-						<div class="new-comment-box hide">
-							<form class="new-comment-form">
-								<input name="content" type="text" size="120">
-								<input name="adId" type="hidden" value="${ad.getId() }">
-								<input name="userId" type="hidden" value="${loggedUserId }">
-								<input type="submit" value="Wyślij">
-							</form>
+						<button class="add-comment-btn" style="float: right;">Dodaj komentarz</button>
+						<b style="line-height: 150%;"><c:out value="${ad.getTitle() }"/></b>
+						<br>
+						opublikował: <c:out value="${ad.getUser().getFullname() }"/><br>
+						telefon: <c:out value="${ad.getUser().getPhone() }"/><br>
+						miejsce: <c:out value="${ad.getLocation() }"/><br>
+						<c:set value="${ad.getExpiryTimestamp() }" var="expiry"/>
+						ważne do: <fmt:formatDate value="${expiry }" type="date" pattern="dd-MM-yyyy"/>
+						<br>
+						<c:out value="${ad.getDescription() }"/>
+						<c:set value="${ad.getCategories() }" var="categories"></c:set>
+						<c:if test="${not empty categories }">
+							<div>Kategorie: <c:forEach items="${categories }" var="cat"><c:out value="${cat.getName() }"/>&nbsp&nbsp&nbsp</c:forEach></div>
+						</c:if>
+					</div>
+					<c:if test="${not empty comments }">
+						<div class="comment-box hide">
+							<c:forEach items="${comments }" var="comment">
+								<div class="comment-item">
+									<b><c:out value="${comment.getUser().getUsername() }"/></b>
+									<c:out value="${comment.getContent() }"/>
+								</div>
+							</c:forEach>							
 						</div>
-					</c:forEach>
-				</div>
+					</c:if>
+					<!-- Tu jest formularz dodania komentarza -->
+					<div class="new-comment-box hide">
+						<form class="new-comment-form">
+							<input name="content" type="text" size="120">
+							<input name="adId" type="hidden" value="${ad.getId() }">
+							<input name="userId" type="hidden" value="${loggedUserId }">
+							<input type="submit" value="Wyślij">
+						</form>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

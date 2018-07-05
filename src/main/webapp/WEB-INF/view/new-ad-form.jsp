@@ -8,7 +8,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	
 	<style><%@include file="/WEB-INF/css/style.css"%></style>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="_csrf_header" content="${_csrf.headerName}"/>
@@ -19,8 +21,8 @@
 	<div id="container">
 		<h4>Nowe ogłoszenie</h4>
 		<hr>
-		<form:form modelAttribute="newAd" method="POST" action="${pageContext.request.contextPath }/user/new-ad"  acceptCharset="UTF-8">
-			<table>
+		<table>
+			<form:form modelAttribute="newAd" method="POST" action="${pageContext.request.contextPath }/user/new-ad"  acceptCharset="UTF-8">
 				<tr>
 					<td>Tytuł</td>
 					<td><form:input path="title" size="60"/></td>
@@ -40,8 +42,8 @@
 					<td><input type="submit" value="Zatwierdź" role="button" class="btn btn-secondary" aria-pressed="true"></td>
 					<td><a href="${pageContext.request.contextPath}/user" role="button" class="btn btn-secondary" aria-pressed="true">Anuluj</a><td>
 				</tr>
-			</table>
-		</form:form>
+			</form:form>
+		</table>
 	</div>
 </body>
 </html>
