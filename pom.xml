@@ -96,7 +96,6 @@
 	    <version>6.0.10.Final</version>
 	</dependency>
 	
-	
 	<!-- SPRING SECURITY -->
 	<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 	<dependency>
@@ -121,6 +120,13 @@
 	    <groupId>org.springframework.security</groupId>
 	    <artifactId>spring-security-taglibs</artifactId>
 	    <version>5.0.6.RELEASE</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jpamodelgen -->
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-jpamodelgen</artifactId>
+	    <version>5.3.2.Final</version>
+    	<scope>provided</scope>
 	</dependency>
 	
 	<!-- JSTL -->

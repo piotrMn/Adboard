@@ -95,7 +95,6 @@ public class UserController {
 		}
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User thisUser = specificService.getUserByUsername(username);
-//		thisUser.getAds().add(newAd);
 		newAd.setUser(thisUser);
 		newAd.setExpiryTimestamp(Timestamp.valueOf(LocalDateTime.now().plusDays(30)));
 		adService.saveEntity(newAd);
@@ -114,7 +113,6 @@ public class UserController {
 	@GetMapping("/my-ads/{id}")
 	public String showMyAddsPage(@PathVariable("id") long id, Model model) {
 		User thisUser = userService.getEntityById(User.class, id);
-//		List<Ad> hisAds = thisUser.getAds();
 		List<Ad> hisAds = specificService.getAllAdsByUserId(thisUser.getId());
 		model.addAttribute("ads", hisAds);
 		return "my-ads";
@@ -128,9 +126,7 @@ public class UserController {
 	
 	@ModelAttribute("allCategories")
 	public List<Category> addCategories() {
-		List<Category> allCategories = catService.getAllEntities(Category.class);
-		Collections.sort(allCategories);
-		return allCategories;
+		return specificService.getAllCategoriesAlphabetically();
 	}
 
 }

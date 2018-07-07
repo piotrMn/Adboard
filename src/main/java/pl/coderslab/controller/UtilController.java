@@ -102,7 +102,6 @@ public class UtilController {
 		ad1.setLocation("Opole");
 		ad1.setExpiryTimestamp(Timestamp.valueOf(LocalDateTime.now().plusDays(30)));
 		User thisUser = userService.getEntityById(User.class, 1L);
-//		thisUser.getAds().add(ad1);
 		ad1.setUser(thisUser);
 		adService.saveEntity(ad1);
 
@@ -113,7 +112,6 @@ public class UtilController {
 		ad2.setLocation("Gliwice");
 		ad2.setExpiryTimestamp(Timestamp.valueOf(LocalDateTime.now().plusDays(20)));
 		User thisUser2 = userService.getEntityById(User.class, 2L);
-//		thisUser2.getAds().add(ad2);
 		ad2.setUser(thisUser2);
 		adService.saveEntity(ad2);
 
@@ -124,7 +122,6 @@ public class UtilController {
 		ad3.setLocation("Katowice - Panewniki");
 		ad3.setExpiryTimestamp(Timestamp.valueOf(LocalDateTime.now().plusDays(25)));
 		User thisUser3 = userService.getEntityById(User.class, 3L);
-//		thisUser3.getAds().add(ad3);
 		ad3.setUser(thisUser3);
 		adService.saveEntity(ad3);
 
@@ -135,7 +132,6 @@ public class UtilController {
 		ad4.setLocation("Katowice");
 		ad4.setExpiryTimestamp(Timestamp.valueOf(LocalDateTime.now().plusDays(35)));
 		User thisUser4 = userService.getEntityById(User.class, 4L);
-//		thisUser4.getAds().add(ad4);
 		ad4.setUser(thisUser4);
 		adService.saveEntity(ad4);
 
@@ -146,7 +142,6 @@ public class UtilController {
 		ad5.setLocation("Bytom");
 		ad5.setExpiryTimestamp(Timestamp.valueOf(LocalDateTime.now().plusDays(25)));
 		User thisUser5 = userService.getEntityById(User.class, 4L);
-//		thisUser5.getAds().add(ad5);
 		ad5.setUser(thisUser5);
 		adService.saveEntity(ad5);
 

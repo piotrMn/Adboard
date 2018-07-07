@@ -15,7 +15,8 @@ import org.springframework.stereotype.Repository;
 
 import pl.coderslab.entity.Ad;
 import pl.coderslab.entity.Comment;
-import pl.coderslab.entity.User;
+import pl.coderslab.metamodel.Ad_;
+import pl.coderslab.metamodel.Comment_;
 
 @Repository
 public class CommentDaoImpl implements CommentDao {
@@ -34,7 +35,8 @@ public class CommentDaoImpl implements CommentDao {
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Comment> criteria = builder.createQuery(Comment.class);
 			Root<Comment> root = criteria.from(Comment.class);
-			criteria.select(root).where(builder.equal(root.get("ad").get("id"), id));
+			criteria.select(root).where(builder.equal(root.get(Comment_.ad).get(Ad_.id), id))
+					.orderBy(builder.desc(root.get(Comment_.creationTimestamp)));
 			comments = session.createQuery(criteria).getResultList();
 			tx.commit();
 		} catch (Exception e) {
@@ -55,9 +57,7 @@ public class CommentDaoImpl implements CommentDao {
 		try {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-//			User thisUser = session.get(User.class, comment.getUser().getId());
 			Ad thisAd = session.get(Ad.class, comment.getAd().getId());
-//			thisUser.getComments().add(comment);
 			thisAd.getComments().add(comment);
 			session.save(comment);
 			tx.commit();
@@ -69,6 +69,6 @@ public class CommentDaoImpl implements CommentDao {
 		} finally {
 			session.close();
 		}
-		
+
 	}
 }

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Repository;
 
 import pl.coderslab.entity.Authority;
 import pl.coderslab.entity.User;
+import pl.coderslab.metamodel.Authority_;
+import pl.coderslab.metamodel.User_;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -58,7 +60,7 @@ public class UserDaoImpl implements UserDao {
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<User> criteria = builder.createQuery(User.class);
 			Root<User> userRoot = criteria.from(User.class);
-			criteria.select(userRoot).where(builder.equal(userRoot.get("username"), username));
+			criteria.select(userRoot).where(builder.equal(userRoot.get(User_.username), username));
 			try {
 				thisUser = session.createQuery(criteria).getSingleResult();
 			} catch (NoResultException e) {
@@ -83,20 +85,16 @@ public class UserDaoImpl implements UserDao {
 		try {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			//szukanie użytkownika
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<User> userCriteria = builder.createQuery(User.class);
 			Root<User> userRoot = userCriteria.from(User.class);
-			userCriteria.select(userRoot).where(builder.equal(userRoot.get("username"), username));
+			userCriteria.select(userRoot).where(builder.equal(userRoot.get(User_.username), username));
 			User thisUser = session.createQuery(userCriteria).getSingleResult();
-			//szukanie odpowiadających mu rekordów z tablicy "authorities"
 			CriteriaQuery<Authority> authorityCriteria = builder.createQuery(Authority.class);
 			Root<Authority> authorityRoot = authorityCriteria.from(Authority.class);
-			authorityCriteria.select(authorityRoot).where(builder.equal(authorityRoot.get("username"), username));
+			authorityCriteria.select(authorityRoot).where(builder.equal(authorityRoot.get(Authority_.username), username));
 			List<Authority> theAuthorities = session.createQuery(authorityCriteria).getResultList();
-			//usuwanie rekordu z tablicy "users"
 			session.delete(thisUser);
-			//usuwanie rekordu/rekordów z tablicy "authorities"
 			for (Authority authority : theAuthorities) {
 				session.delete(authority);
 			}

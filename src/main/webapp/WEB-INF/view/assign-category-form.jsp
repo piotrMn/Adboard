@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div id="container">
-		<h4>Dodaj kategorie</h4>
+		<h4>Przypisz kategorie</h4>
 		<hr>
 		<div class="row">
 			<div class="col-9">

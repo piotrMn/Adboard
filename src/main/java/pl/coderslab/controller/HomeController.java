@@ -1,6 +1,5 @@
 package pl.coderslab.controller;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -81,9 +80,7 @@ public class HomeController {
 
 	@ModelAttribute("allCategories")
 	public List<Category> addCategories() {
-		List<Category> allCategories = catService.getAllEntities(Category.class);
-		Collections.sort(allCategories);
-		return allCategories;
+		return specificService.getAllCategoriesAlphabetically();
 	}
 
 }

@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.coderslab.dao.AdDao;
+import pl.coderslab.dao.CategoryDao;
 import pl.coderslab.dao.CommentDao;
 import pl.coderslab.dao.Role;
 import pl.coderslab.dao.UserDao;
 import pl.coderslab.entity.Ad;
+import pl.coderslab.entity.Category;
 import pl.coderslab.entity.Comment;
 import pl.coderslab.entity.User;
 
@@ -24,6 +26,9 @@ public class SpecificServiceImpl implements SpecificService {
 	
 	@Autowired
 	CommentDao commentDao;
+	
+	@Autowired
+	CategoryDao categoryDao;
 
 	@Override
 	public List<Ad> getAllCurrentAds() {
@@ -63,6 +68,11 @@ public class SpecificServiceImpl implements SpecificService {
 	@Override
 	public void saveComment(Comment comment) {
 		commentDao.saveComment(comment);
+	}
+
+	@Override
+	public List<Category> getAllCategoriesAlphabetically() {
+		return categoryDao.getAllCategoriesAlphabetically();
 	}
 
 
