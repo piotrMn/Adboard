@@ -16,6 +16,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import pl.coderslab.validator.Password;
 import pl.coderslab.validator.Phone;
+import pl.coderslab.validator.UsernameDuplicate;
 
 @Entity
 @Table(name = "users")
@@ -31,6 +32,7 @@ public class User {
 
 	@NotBlank(message = "Pole nie może byc puste.")
 	@Size(min = 5, max = 30, message = "Co najmniej 5 znaków")
+	@UsernameDuplicate(message = "Taki użytkownik już istnieje")
 	private String username;
 
 	@Column(columnDefinition = "VARCHAR(68)")
