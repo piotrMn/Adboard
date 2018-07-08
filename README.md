@@ -4,7 +4,7 @@
 Application for publishing advertisements.  
 Made with Spring MVC and Spring Security. Object relational mapping by Hibernate framework.  
 Rest service for asynchronous comment saving.   
-Main functionalities:  
+Main functionalities:
 - signing up and signing in (Spring Security)
 - browsing through advertisements and filtering by categories (jQuery)
 - adding, editing and removing ads by signed-in users
