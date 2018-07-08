@@ -1,19 +1,16 @@
 
 # Adboard
 
-Aplikacja do publikowania ogłoszeń.  
-Wykonana na platformie Spring (model-widok-kontroler).  
-Podstawowe funkcjonalności:  
-- tworzenie konta i logowanie się
-- przeglądanie aktualnych ogłoszeń przez wszystkich odwiedzających
-- dodawanie, edycja, usuwanie ogłoszeń i przeglądanie historycznych ogłoszeń przez zalogowanych użytkowników
-- zarządzanie kategoriami przez administratora
-- publikowanie komentarzy  
-Tworzenie kont i przydział ról (zwykły użytkownik, administrator) w oparciu o Spring Security.  
-Generyczne DAO dla zapisywania, usuwania, pobierania encji wg Id i listy wszystkich encji.  
-Komentowanie ogłoszeń z wykorzystaniem jQuery i Ajax.  
-Przykładowy użytkownik admninistrator: admin (hasło: admin)  
-URL strony administratora: http://localhost:8080/Adboard/admin (wpisane z klawiatury)
+Application for publishing advertisements.  
+Made with Spring MVC and Spring Security. Object relational mapping by Hibernate framework.  
+Rest service for asynchronous comment saving.   
+Main functionalities:  
+- signing up and signing in (Spring Security)
+- browsing through advertisements and filtering by categories (jQuery)
+- adding, editing and removing ads by signed-in users
+- adding, editing, removing categories and assigning them to advertisements by administrator
+- publishing comments by signed-in users (jQuery, Ajax).  
+Admin URL http://localhost:8080/Adboard/admin (username: admin, password: admin)
 
 
 
