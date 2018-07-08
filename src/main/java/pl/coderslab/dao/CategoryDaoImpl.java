@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pl.coderslab.entity.Category;
-import pl.coderslab.metamodel.Category_;
 
 @Repository
 public class CategoryDaoImpl implements CategoryDao {
@@ -33,7 +32,7 @@ public class CategoryDaoImpl implements CategoryDao {
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Category> criteria = builder.createQuery(Category.class);
 			Root<Category> root = criteria.from(Category.class);
-			criteria.select(root).orderBy(builder.asc(root.get(Category_.name)));
+			criteria.select(root).orderBy(builder.asc(root.get("name")));
 			categories = session.createQuery(criteria).getResultList();
 		} catch (Exception e) {
 			if (tx != null) {

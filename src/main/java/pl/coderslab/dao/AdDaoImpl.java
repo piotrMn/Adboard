@@ -17,8 +17,6 @@ import org.springframework.stereotype.Repository;
 
 import pl.coderslab.entity.Ad;
 import pl.coderslab.entity.Category;
-import pl.coderslab.metamodel.Ad_;
-import pl.coderslab.metamodel.User_;
 
 @Repository
 public class AdDaoImpl implements AdDao {
@@ -38,8 +36,8 @@ public class AdDaoImpl implements AdDao {
 			CriteriaQuery<Ad> criteria = builder.createQuery(Ad.class);
 			Root<Ad> adRoot = criteria.from(Ad.class);
 			criteria.select(adRoot)
-					.where(builder.greaterThan(adRoot.get(Ad_.expiryTimestamp), Timestamp.valueOf(LocalDateTime.now())))
-					.orderBy(builder.desc(adRoot.get(Ad_.creationTimestamp)));
+					.where(builder.greaterThan(adRoot.get("expiryTimestamp"), Timestamp.valueOf(LocalDateTime.now())))
+					.orderBy(builder.desc(adRoot.get("creationTimestamp")));
 			currentAds = session.createQuery(criteria).getResultList();
 			tx.commit();
 		} catch (Exception e) {
@@ -64,7 +62,7 @@ public class AdDaoImpl implements AdDao {
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Ad> criteria = builder.createQuery(Ad.class);
 			Root<Ad> adRoot = criteria.from(Ad.class);
-			criteria.select(adRoot).where(builder.equal(adRoot.get(Ad_.user).get(User_.id), id));
+			criteria.select(adRoot).where(builder.equal(adRoot.get("user").get("id"), id));
 			allAds = session.createQuery(criteria).getResultList();
 			tx.commit();
 		} catch (Exception e) {

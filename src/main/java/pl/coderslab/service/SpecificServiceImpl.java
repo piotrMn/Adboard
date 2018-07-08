@@ -13,6 +13,7 @@ import pl.coderslab.dao.UserDao;
 import pl.coderslab.entity.Ad;
 import pl.coderslab.entity.Category;
 import pl.coderslab.entity.Comment;
+import pl.coderslab.entity.CommentDTO;
 import pl.coderslab.entity.User;
 
 @Service
@@ -66,8 +67,8 @@ public class SpecificServiceImpl implements SpecificService {
 	}
 
 	@Override
-	public void saveComment(Comment comment) {
-		commentDao.saveComment(comment);
+	public void saveComment(CommentDTO commentDTO) {
+		commentDao.saveComment(commentDTO);
 	}
 
 	@Override

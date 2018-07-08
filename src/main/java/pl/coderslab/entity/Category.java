@@ -30,7 +30,7 @@ public class Category implements Comparable<Category> {
 	@Column(columnDefinition = "MEDIUMTEXT")
 	private String description;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinTable(
 			name = "ad_category",
 			joinColumns = @JoinColumn(name = "category_id"),

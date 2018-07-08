@@ -42,9 +42,7 @@
 				<c:forEach items="${currentAds}" var="ad">
 					<c:set value="${ad.getComments() }" var="comments"/>
 					<div class="ad-list-item" >
-						<c:if test="${not empty comments }">
-							<button class="show-comments-btn" style="float: right;">Zobacz komentarze</button>
-						</c:if>
+						<button class="show-comments-btn" style="float: right;">Komentarze</button>
 						<b style="line-height: 0.75em;"><c:out value="${ad.getTitle() }"/></b>
 						<hr>
 						opublikował: <c:out value="${ad.getUser().getFullname() }"/><br>
@@ -59,16 +57,19 @@
 							<div>Kategorie: <c:forEach items="${categories }" var="cat"><c:out value="${cat.getName() }"/>&nbsp&nbsp&nbsp</c:forEach></div>
 						</c:if>
 					</div>
-					<c:if test="${not empty comments }">
-						<div class="comment-box hide">
+					<div class="comment-box hide">
+						<c:if test="${empty comments }">
+							Brak komentarzy
+						</c:if>
+						<c:if test="${not empty comments }">
 							<c:forEach items="${comments }" var="comment">
 								<div class="comment-item">
-									<b><c:out value="${comment.getUser().getUsername() }"/></b>
-									<c:out value="${comment.getContent() }"/>
+									${comment.getUser().getFullname() }  (<fmt:formatDate value="${comment.getCreationTimestamp() }" type="both"/>)<br>
+									${comment.getContent() }
 								</div>
-							</c:forEach>							
-						</div>
-					</c:if>
+							</c:forEach>					
+						</c:if>
+					</div>
 				</c:forEach>
 			</div>
 		</div>

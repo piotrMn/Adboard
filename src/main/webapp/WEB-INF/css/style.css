@@ -74,3 +74,7 @@
 .new-comment-box{
 	padding: 0.5em;
 }
+
+.comment-item{
+	border-bottom: 1px dotted darkgray;
+}

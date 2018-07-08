@@ -62,10 +62,22 @@
 				<%int i = 1; %>
 				<c:forEach items="${currentAds}" var="ad">
 					<c:set value="${ad.getComments() }" var="comments"/>
+					<!-- Tu jest formularz dodania komentarza -->
+					<div class="new-comment-box hide">
+						<form class="new-comment-form">
+							<input name="content" type="text" size="120">
+							<input name="adId" type="hidden" value="${ad.getId() }">
+							<input name="userId" type="hidden" value="${loggedUserId }">
+							<input name="username" type="hidden" value="${loggedUser.getUsername() }">
+							<input name="password" type="hidden" value="${loggedUser.getPassword() }">
+							<input type="submit" value="Wyślij">
+						</form>
+					</div>
 					<div class="ad-list-item" data-row="<%=i %>"><%i++; %>
-						<c:if test="${not empty comments }">
-							<button class="show-comments-btn" style="float: right;">Zobacz komentarze</button>
-						</c:if>
+						<button class="show-comments-btn" style="float: right;">Komentarze</button>
+						<input name="adId" type="hidden" value="${ad.getId() }">
+						<input name="username" type="hidden" value="${loggedUser.getUsername() }">
+						<input name="password" type="hidden" value="${loggedUser.getPassword() }">
 						<button class="add-comment-btn" style="float: right;">Dodaj komentarz</button>
 						<b style="line-height: 150%;"><c:out value="${ad.getTitle() }"/></b>
 						<br>
@@ -81,24 +93,19 @@
 							<div>Kategorie: <c:forEach items="${categories }" var="cat"><c:out value="${cat.getName() }"/>&nbsp&nbsp&nbsp</c:forEach></div>
 						</c:if>
 					</div>
-					<c:if test="${not empty comments }">
-						<div class="comment-box hide">
+					<div class="comment-box hide">
+						<c:set value="${ad.getComments() }" var="comments"></c:set>
+						<c:if test="${empty comments }">
+							Brak komentarzy
+						</c:if>
+						<c:if test="${not empty comments }">
 							<c:forEach items="${comments }" var="comment">
 								<div class="comment-item">
-									<b><c:out value="${comment.getUser().getUsername() }"/></b>
-									<c:out value="${comment.getContent() }"/>
+									${comment.getUser().getFullname() }  (<fmt:formatDate value="${comment.getCreationTimestamp() }" type="both"/>)<br>
+									${comment.getContent() }
 								</div>
-							</c:forEach>							
-						</div>
-					</c:if>
-					<!-- Tu jest formularz dodania komentarza -->
-					<div class="new-comment-box hide">
-						<form class="new-comment-form">
-							<input name="content" type="text" size="120">
-							<input name="adId" type="hidden" value="${ad.getId() }">
-							<input name="userId" type="hidden" value="${loggedUserId }">
-							<input type="submit" value="Wyślij">
-						</form>
+							</c:forEach>					
+						</c:if>
 					</div>
 				</c:forEach>
 			</div>

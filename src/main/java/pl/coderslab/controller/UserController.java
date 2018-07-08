@@ -49,6 +49,7 @@ public class UserController {
 			if (thisUser != null) {
 				List<Ad> theAds = specificService.getAllAdsByUserId(thisUser.getId());
 				request.setAttribute("loggedUserId", thisUser.getId());
+				request.setAttribute("loggedUser", thisUser);
 				model.addAttribute("myAds", theAds);
 			}
 		}

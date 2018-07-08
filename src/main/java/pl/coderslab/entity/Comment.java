@@ -12,6 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "comments")
 public class Comment implements Comparable<Comment>{
@@ -23,12 +28,14 @@ public class Comment implements Comparable<Comment>{
 	@NotBlank(message = "Pole nie może byc puste.")
 	private String content;
 
+	@CreationTimestamp
 	private Timestamp creationTimestamp;
 
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
 	private User user;
 
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Ad ad;
 
 	public Comment() {
@@ -62,8 +69,8 @@ public class Comment implements Comparable<Comment>{
 		return user;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(User thisUser) {
+		this.user = thisUser;
 	}
 	
 	public Ad getAd() {

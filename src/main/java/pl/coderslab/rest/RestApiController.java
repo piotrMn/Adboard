@@ -2,20 +2,19 @@ package pl.coderslab.rest;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.coderslab.entity.Ad;
 import pl.coderslab.entity.Comment;
+import pl.coderslab.entity.CommentDTO;
 import pl.coderslab.entity.User;
 import pl.coderslab.service.GenericService;
 import pl.coderslab.service.SpecificService;
@@ -35,16 +34,14 @@ public class RestApiController {
 	
 	@GetMapping("/comments/{adId}")
 	public List<Comment> getCommentsForAd(@PathVariable("adId") long id) {
-		List<Comment> comments = new ArrayList<>();
-		comments = specificService.getCommentsByAdId(id);
-		Collections.sort(comments);
-		return comments;
+		return specificService.getCommentsByAdId(id);
 	}
 	
-	@PostMapping("/comments")
-	public Comment addComment(@RequestBody Comment comment) {
-		specificService.saveComment(comment);
-		return comment;
+	@RequestMapping(value = "/comments", method = {RequestMethod.POST}, 
+	consumes = {"application/json"})
+	public CommentDTO addComment(@RequestBody CommentDTO commentDTO) {
+		specificService.saveComment(commentDTO);
+		return commentDTO;
 	}
 	
 	@GetMapping("/users/{userId}")

@@ -6,6 +6,7 @@ import pl.coderslab.dao.Role;
 import pl.coderslab.entity.Ad;
 import pl.coderslab.entity.Category;
 import pl.coderslab.entity.Comment;
+import pl.coderslab.entity.CommentDTO;
 import pl.coderslab.entity.User;
 
 public interface SpecificService {
@@ -24,7 +25,7 @@ public interface SpecificService {
 	
 	public List<Comment> getCommentsByAdId(long id);
 	
-	public void saveComment(Comment comment);
+	public void saveComment(CommentDTO commentDTO);
 	
 	List<Category> getAllCategoriesAlphabetically();
 	

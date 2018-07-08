@@ -1,5 +1,7 @@
 package pl.coderslab.dao;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +17,8 @@ import org.springframework.stereotype.Repository;
 
 import pl.coderslab.entity.Ad;
 import pl.coderslab.entity.Comment;
-import pl.coderslab.metamodel.Ad_;
-import pl.coderslab.metamodel.Comment_;
+import pl.coderslab.entity.CommentDTO;
+import pl.coderslab.entity.User;
 
 @Repository
 public class CommentDaoImpl implements CommentDao {
@@ -35,8 +37,8 @@ public class CommentDaoImpl implements CommentDao {
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Comment> criteria = builder.createQuery(Comment.class);
 			Root<Comment> root = criteria.from(Comment.class);
-			criteria.select(root).where(builder.equal(root.get(Comment_.ad).get(Ad_.id), id))
-					.orderBy(builder.desc(root.get(Comment_.creationTimestamp)));
+			criteria.select(root).where(builder.equal(root.get("user").get("id"), id))
+					.orderBy(builder.desc(root.get("creationTimestamp")));
 			comments = session.createQuery(criteria).getResultList();
 			tx.commit();
 		} catch (Exception e) {
@@ -51,15 +53,21 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public void saveComment(Comment comment) {
+	public void saveComment(CommentDTO commentDTO) {
 		Session session = null;
 		Transaction tx = null;
 		try {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			Ad thisAd = session.get(Ad.class, comment.getAd().getId());
-			thisAd.getComments().add(comment);
-			session.save(comment);
+			User thisUser = session.get(User.class, commentDTO.getUserId());
+			Ad thisAd = session.get(Ad.class, commentDTO.getAdId());
+			Comment newComment = new Comment();
+			newComment.setContent(commentDTO.getContent());
+			newComment.setAd(thisAd);
+			newComment.setUser(thisUser);
+			newComment.setCreationTimestamp(Timestamp.valueOf(LocalDateTime.now()));
+			thisAd.getComments().add(newComment);
+			session.save(newComment);
 			tx.commit();
 		} catch (Exception e) {
 			if (tx != null) {
