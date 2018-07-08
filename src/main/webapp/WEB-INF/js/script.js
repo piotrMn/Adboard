@@ -15,45 +15,6 @@ $(function() {
 		}
 	})
 	
-	
-	//wyswietlenie komentarzy
-//	$(".show-comments-btn").click(function(event) {
-//		var commentBox = $(this).parent().next();
-//		var token = $("meta[name='_csrf']").attr("content");
-//		var header = $("meta[name='_csrf_header']").attr("content");
-//		var adId = $(this).parent().find("input[name='adId']").val();
-//		var username = $(this).parent().find("input[name='username']").val();
-//		var password = $(this).parent().find("input[name='password']").val();
-//		commentBox.empty();
-//		$.ajax({
-//			url: 'http://localhost:8080/Adboard/rest/comments/' + adId,
-//			type: 'GET',
-//			headers: {
-//				'Accept': 'application/json',
-//				'Content-Type' : 'application/json',
-//				'Authorization' : 'Basic ' + btoa(username + ':' + password)
-//			},
-//			beforeSend: function(xhr){
-//				xhr.setRequestHeader(header, token);
-//			},
-//			dataType: 'json'
-//			})
-//		.done(function(comments){
-//			$(comments).each(function(index, comment){
-//				var text = comment.content;
-//				var username = comment.user.username;
-//				var time = formatTimestamp(comment.creationTimestamp);
-//				commentBox.append(username + " - " + time).append("<br>").append(text).append("<hr>");
-//			});
-//			commentBox.append("<button class='hide-comments'>Ukryj</button>");
-//			$(".hide-comments").click(function(){
-//				commentBox.hide();
-//			})
-//			commentBox.show();
-//		})
-//		.fail(function(){console.log('failed to get comments')})
-//		.always(function(){console.log('finished')});
-//	})
 	$(".show-comments-btn").click(function(){
 		$(this).parent().next().toggle();
 	})
@@ -71,6 +32,7 @@ $(function() {
 		var adId = $(this).find("input[name='adId']").val();
 		var username = $(this).find("input[name='username']").val();
 		var password = $(this).find("input[name='password']").val();
+		var fullname = $(this).find("input[name='fullname']").val();
 		
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
@@ -87,7 +49,7 @@ $(function() {
 			},
 			data : JSON.stringify({
 				"content" : content ,
-				"username" : username,
+				"fullname" : fullname,
 				"adId" : adId,
 				"userId" : userId
 				}),
@@ -96,9 +58,13 @@ $(function() {
 		.done(function(comment){
 			var username = comment.username;
 			var content = comment.content;
-			var time = new Date().toLocaleString();
-			var newDiv = $("<div class='comment-item'>" + username + " - " + time +  "<br>" + content + "</div>");
+			var d = new Date();
+			var dateFormatted = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString())+":00";
+			console.log(date_format_str);
+
+			var newDiv = $("<div class='comment-item'>" + fullname + " (" + dateFormatted +  ")<br>" + content + "</div>");
 			commentBox.prepend(newDiv);
+			commentBox.find("p.no-comments").empty();
 			newCommentForm.hide();
 			commentBox.show();
 			

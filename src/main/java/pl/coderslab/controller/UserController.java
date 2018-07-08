@@ -122,7 +122,11 @@ public class UserController {
 	
 	@ModelAttribute("currentAds")
 	public List<Ad> getCurrentAds() {
-		return specificService.getAllCurrentAds();
+		List<Ad> allAds = specificService.getAllCurrentAds();
+		for(Ad ad : allAds) {
+			Collections.sort(ad.getComments());
+		}
+		return allAds;
 	}
 	
 	@ModelAttribute("allCategories")

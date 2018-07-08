@@ -21,6 +21,7 @@
 	margin: 0.5em;
 	border: 1px dotted darkgray;
 	border-radius: 0.5em;
+
 }
 
 .category-list-item:hover{
@@ -52,11 +53,9 @@
 	padding: 0.5em;
 	margin: 0.5em;
 	border: 1px dotted darkgray;
-	border-radius: 0.5em;
-}
-
-.comment-item{
-	padding-bottom: 0.5em;
+	border-top: 0;
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
 }
 
 .hide{
@@ -77,4 +76,5 @@
 
 .comment-item{
 	border-bottom: 1px dotted darkgray;
+	padding-bottom: 0.3em;
 }

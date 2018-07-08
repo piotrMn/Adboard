@@ -3,7 +3,7 @@ package pl.coderslab.entity;
 public class CommentDTO {
 	
 	private String content;
-	private String username;
+	private String fullname;
 	private long adId;
 	private long userId;
 	
@@ -26,20 +26,20 @@ public class CommentDTO {
 		this.adId = adId;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public long getUserId() {
 		return userId;
 	}
 
 	public void setUserId(long userId) {
 		this.userId = userId;
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 	
 }

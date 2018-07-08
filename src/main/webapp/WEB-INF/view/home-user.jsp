@@ -69,6 +69,7 @@
 							<input name="adId" type="hidden" value="${ad.getId() }">
 							<input name="userId" type="hidden" value="${loggedUserId }">
 							<input name="username" type="hidden" value="${loggedUser.getUsername() }">
+							<input name="fullname" type="hidden" value="${loggedUser.getFullname() }">
 							<input name="password" type="hidden" value="${loggedUser.getPassword() }">
 							<input type="submit" value="Wyślij">
 						</form>
@@ -96,7 +97,7 @@
 					<div class="comment-box hide">
 						<c:set value="${ad.getComments() }" var="comments"></c:set>
 						<c:if test="${empty comments }">
-							Brak komentarzy
+							<p class="no-comments">Brak komentarzy</p>
 						</c:if>
 						<c:if test="${not empty comments }">
 							<c:forEach items="${comments }" var="comment">

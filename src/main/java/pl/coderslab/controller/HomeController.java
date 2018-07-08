@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -75,6 +76,9 @@ public class HomeController {
 	@ModelAttribute("currentAds")
 	public List<Ad> getCurrentAds() {
 		List<Ad> allAds = specificService.getAllCurrentAds();
+		for(Ad ad : allAds) {
+			Collections.sort(ad.getComments());
+		}
 		return allAds;
 	}
 
